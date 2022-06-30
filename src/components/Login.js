@@ -1,4 +1,6 @@
 import React from "react";
+import AuthForm from "./AuthForm";
+import Input from "./Input";
 
 function Login({ onLogin }) {
   const [email, setEmail] = React.useState("");
@@ -20,36 +22,33 @@ function Login({ onLogin }) {
 
   return (
     <div className="identification">
-      <form
-        className="auth-form auth-form_type_login"
-        onSubmit={handleSubmit}
+    <AuthForm
+      onSubmit={handleSubmit}
+      title="Рады видеть!"
+      isValid={isValid}
+      buttonText="Войти"
+      linkCaption="Ещё не зарегистрированы?"
+      linkText="Регистрация"
+      linkPath="/signup"
       >
-        <h2 className="auth-form__title">Рады видеть!</h2>
-        <input
+        <Input
           type="email"
-          className="auth-form__input"
+          name="email"
           value={email || ""}
           onChange={handleEmailChange}
-          placeholder="Email"
-          required
+          placeholder="E-mail"
+          errors={errors}
         />
-        <input
+        <Input
           type="password"
-          className="auth-form__input"
-          value={password || ""}
+          name="password"
+          value={email || ""}
           onChange={handlePasswordChange}
-          placeholder="Пароль"
-          required
+          placeholder="E-mail"
+          errors={errors}
         />
-        <button type="submit" className="auth-form__button">
-          Войти
-        </button>
-        <p className="auth-form__link-caption">Ещё не зарегистрированы?</p>
-        <Link className="auth-form__link" to="/signin">
-          Регистрация
-        </Link>
-      </form>
-    </div>
+    </AuthForm>
+  </div>
   );
 }
 

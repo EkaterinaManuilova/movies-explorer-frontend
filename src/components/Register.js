@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import AuthForm from "./AuthForm";
+import Input from "./Input";
 
 function Register({ onRegister }) {
   const [name, setName] = React.useState("");
@@ -26,46 +27,42 @@ function Register({ onRegister }) {
 
   return (
     <div className="identification">
-      <form
-        className="auth-form auth-form_type_register"
+      <AuthForm
         onSubmit={handleSubmit}
-      >
-        <h2 className="auth-form__title">Добро пожаловать!</h2>
-        <input
-          type="text"
-          className="auth-form__input"
-          value={name || ""}
-          onChange={handleNameChange}
-          placeholder="Имя"
-          autoComplete="off"
-          required
-        />
-        <input
-          type="email"
-          className="auth-form__input"
-          value={email || ""}
-          onChange={handleEmailChange}
-          placeholder="E-mail"
-          autoComplete="off"
-          required
-        />
-        <input
-          type="password"
-          className="auth-form__input"
-          value={password || ""}
-          onChange={handlePasswordChange}
-          placeholder="Пароль"
-          autoComplete="off"
-          required
-        />
-        <button type="submit" className="auth-form__button">
-          Зарегистрироваться
-        </button>
-        <p className="auth-form__link-caption">Уже зарегистрированы?</p>
-        <Link className="auth-form__link" to="/signin">
-          Войти
-        </Link>
-      </form>
+        title="Добро пожаловать!"
+        isValid={isValid}
+        buttonText="Зарегистрироваться"
+        linkCaption="Уже зарегистрированы?"
+        linkText="Войти"
+        linkPath="/signin"
+        >
+          <Input
+            type="text"
+            name="name"
+            value={name || ""}
+            onChange={handleNameChange}
+            placeholder="Имя"
+            minLength={2}
+            maxLength={30}
+            errors={errors}
+          />
+          <Input
+            type="email"
+            name="email"
+            value={email || ""}
+            onChange={handleEmailChange}
+            placeholder="E-mail"
+            errors={errors}
+          />
+          <Input
+            type="password"
+            name="password"
+            value={email || ""}
+            onChange={handlePasswordChange}
+            placeholder="E-mail"
+            errors={errors}
+          />
+      </AuthForm>
     </div>
   );
 }
