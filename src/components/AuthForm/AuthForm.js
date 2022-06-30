@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 
 function AuthForm({
   children,
@@ -9,7 +10,8 @@ function AuthForm({
   buttonText,
   linkCaption,
   linkText,
-  linkPath
+  linkPath,
+  errors
 }) {
 
   return (

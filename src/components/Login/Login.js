@@ -1,6 +1,6 @@
 import React from "react";
-import AuthForm from "./AuthForm";
-import Input from "./Input";
+import AuthForm from "../AuthForm/AuthForm";
+import Input from "../Input/Input";
 
 function Login({ onLogin }) {
   const [email, setEmail] = React.useState("");
@@ -25,7 +25,6 @@ function Login({ onLogin }) {
     <AuthForm
       onSubmit={handleSubmit}
       title="Рады видеть!"
-      isValid={isValid}
       buttonText="Войти"
       linkCaption="Ещё не зарегистрированы?"
       linkText="Регистрация"
@@ -37,7 +36,7 @@ function Login({ onLogin }) {
           value={email || ""}
           onChange={handleEmailChange}
           placeholder="E-mail"
-          errors={errors}
+          // errors={errors}
         />
         <Input
           type="password"
@@ -45,7 +44,7 @@ function Login({ onLogin }) {
           value={email || ""}
           onChange={handlePasswordChange}
           placeholder="E-mail"
-          errors={errors}
+          // errors={errors}
         />
     </AuthForm>
   </div>
