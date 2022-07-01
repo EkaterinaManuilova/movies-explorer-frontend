@@ -108,10 +108,10 @@ return (
           <Route path="*">
             <PageNotFound
 />         </Route> */}
+
         </Routes>
 
-      {/* <Footer /> */}
-
+   {/* <Footer /> */}
     </div>
 );
 }
