@@ -39,6 +39,11 @@
   justify-content: space-between;
 }
 
+.portfolio__link:hover {
+  opacity: 0.7;
+  transition: opacity linear 0.5s;
+}
+
 @media screen and (max-width:768px) {
   .portfolio {
     margin: 91px 0 90px
