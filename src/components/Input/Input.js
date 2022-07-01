@@ -6,7 +6,7 @@ function Input({
   placeholder,
   minLength,
   maxLength,
-  errors,
+  // errors,
 }) {
 
   return (
@@ -23,10 +23,10 @@ function Input({
         autoComplete="off"
         required
         />
-        <span
+        {/* <span
           className={`input__error input__error-active`}>
             {errors.name}
-        </span>
+        </span> */}
     </div>
   );
 }

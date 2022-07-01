@@ -11,7 +11,7 @@ function AuthForm({
   linkCaption,
   linkText,
   linkPath,
-  errors
+  // errors
 }) {
 
   return (
@@ -24,10 +24,10 @@ function AuthForm({
         <h2 className="auth-form__title">{title}</h2>
         <div className="auth-form__inputs">
           {children}
-          <span
+          {/* <span
           className={`auth-form__error`}>
             {errors.name}
-        </span>
+        </span> */}
         </div>
         <button  className={isValid ? "auth-form__button" : "auth-form__button auth-form__button_inactive"}>
           {buttonText}
