@@ -1,5 +1,5 @@
-// import React from "react";
-// import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import './App.css';
 // import Header from "../Header/Header"
 // import Login from "../Login/Login";
@@ -80,7 +80,7 @@ return (
       <div className="page-container">
     {/* <Header /> */}
 
-    {/* <Routes> */}
+    <Routes>
           {/* <Route path="/signup">
             <Register/>
           </Route>
@@ -89,9 +89,9 @@ return (
             <Login/>
           </Route> */}
 
-          {/* <Route exact path="/"> */}
-            <Main />
-          {/* </Route> */}
+          <Route path="/" element={<Main />}>
+            {/* <Main /> */}
+          </Route>
 {/*
           <Route
             exact path="/movies">
@@ -111,7 +111,7 @@ return (
           <Route path="*">
             <PageNotFound
 />         </Route> */}
-        {/* </Routes> */}
+        </Routes>
 
       {/* <Footer /> */}
 
