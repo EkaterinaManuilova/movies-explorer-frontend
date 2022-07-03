@@ -10,7 +10,7 @@ import "./Logo.css";
       className="logo-link"
       >
         <img className="logo" src={logo} alt="логотип проекта" />
-      </Link>
+    </Link>
   )
  }
 

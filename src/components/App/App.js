@@ -1,10 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import './App.css';
-// import Header from "../Header/Header"
+import Header from "../Header/Header"
 import Login from '../Login/Login';
 import Register from "../Register/Register";
 import Main from '../Main/Main';
+import Footer from "../Footer/Footer";
 // import Movies from "../Movies/Movies";
 // import SavedMovies from "../SavedMovies/SavedMovies";
 // import Profile from "../Profile/Profile";
@@ -78,7 +79,7 @@ function App () {
 return (
 
       <div className="page-container">
-    {/* <Header /> */}
+    <Header />
 
     <Routes>
           <Route path="/signup" element={<Register />}>
@@ -109,6 +110,14 @@ return (
             <PageNotFound
 />         </Route> */}
 
+        </Routes>
+        <Routes>
+          <Route path="/movies" element={<Footer />}>
+          </Route>
+          <Route path="/saved-movies" element={<Footer />}>
+          </Route>
+          <Route path="/profile" element={<Footer />}>
+          </Route>
         </Routes>
 
    {/* <Footer /> */}

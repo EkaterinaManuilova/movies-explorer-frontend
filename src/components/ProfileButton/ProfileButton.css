@@ -1,0 +1,11 @@
+.profile-button__link {
+  padding: 0;
+  margin-right: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #272727;
+  border-radius: 25px;
+  width: 100px;
+  height: 32px;
+}
