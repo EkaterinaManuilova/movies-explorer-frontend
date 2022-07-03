@@ -9,7 +9,7 @@ function MainNav() {
       <Link className="main-nav__link main-nav__link_active" to="/movies">
         Фильмы
       </Link>
-      <Link className="main-nav__link main-nav__link_active" to="/saved-movies">
+      <Link className="main-nav__link" to="/saved-movies">
       Сохраненные фильмы
     </Link>
     </React.Fragment>

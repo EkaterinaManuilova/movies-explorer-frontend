@@ -112,6 +112,8 @@ return (
 
         </Routes>
         <Routes>
+        <Route path="/" element={<Footer />}>
+          </Route>
           <Route path="/movies" element={<Footer />}>
           </Route>
           <Route path="/saved-movies" element={<Footer />}>
