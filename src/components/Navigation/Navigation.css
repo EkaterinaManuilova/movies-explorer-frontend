@@ -4,6 +4,7 @@
   flex-direction: row;
   justify-content: center;
   gap: 16px;
+  margin-top: 18px;
 }
 
 .main-nav__link {

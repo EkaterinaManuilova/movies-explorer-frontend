@@ -1,0 +1,10 @@
+.burger-menu-button {
+  display: block;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.burger-menu-button_invisible {
+  display: none;
+}

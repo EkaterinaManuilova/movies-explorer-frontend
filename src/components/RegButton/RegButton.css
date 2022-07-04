@@ -1,3 +1,6 @@
+.reg-button__link {
+  margin-top: 11px;
+}
 .reg-button__link_active {
   text-decoration: none;
   width: 76px;

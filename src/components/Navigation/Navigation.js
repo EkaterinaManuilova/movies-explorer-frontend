@@ -1,8 +1,8 @@
 import React from 'react';
-import './MainNav.css';
+import './Navigation.css';
 import { Link } from 'react-router-dom';
 
-function MainNav() {
+function Navigation() {
   return (
     <nav className="main-nav">
     <React.Fragment>
@@ -14,8 +14,7 @@ function MainNav() {
     </Link>
     </React.Fragment>
     </nav>
-
   )
 }
 
-export default MainNav;
+export default Navigation;

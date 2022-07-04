@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 
 function ProfileButton() {
   return (
-      <Link className="profile-button__link" to="/signup">
+      <Link className="profile-button__link" to="/profile">
         <Button buttonText="Аккаунт" />
       </Link>
   )
