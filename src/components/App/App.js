@@ -8,7 +8,7 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 // import Movies from "../Movies/Movies";
 // import SavedMovies from "../SavedMovies/SavedMovies";
-// import Profile from "../Profile/Profile";
+import Profile from "../Profile/Profile";
 // import PageNotFound from "../PageNotFound/PageNotFound";
 // import Footer from "../Footer/Footer";
 // import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -89,6 +89,9 @@ return (
           </Route>
 
           <Route path="/" element={<Main />}>
+          </Route>
+
+          <Route path="/profile" element={<Profile />}>
           </Route>
           {/* <Route
             path="/*"
