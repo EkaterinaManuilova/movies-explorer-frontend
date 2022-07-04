@@ -25,8 +25,10 @@ function Register() {
   //   onRegister(name, email, password);
   // }
 
+  const isValidInput = true;
+
   return (
-    <div className="identification">
+    // <div className="identification">
       <AuthForm
         // onSubmit={handleSubmit}
         title="Добро пожаловать!"
@@ -39,31 +41,35 @@ function Register() {
           <Input
             type="text"
             name="name"
+            labelText="имя"
             // value={name || ""}
             // onChange={handleNameChange}
             placeholder="Имя"
             minLength={2}
             maxLength={30}
-            // errors={errors}
+            isValidInput={isValidInput}
           />
           <Input
             type="email"
             name="email"
+            labelText="E-mail"
             // value={email || ""}
             // onChange={handleEmailChange}
-            placeholder="E-mail"
-            // errors={errors}
+            placeholder="mail@mail.ru"
+            isValidInput={isValidInput}
           />
           <Input
             type="password"
             name="password"
+            labelText="password"
             // value={email || ""}
             // onChange={handlePasswordChange}
-            placeholder="E-mail"
-            // errors={errors}
+            placeholder="********"
+            isValidInput={!isValidInput}
+            errorText="Что-то пошло не так..."
           />
       </AuthForm>
-    </div>
+    // </div>
   );
 }
 

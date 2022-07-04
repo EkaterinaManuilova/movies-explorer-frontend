@@ -1,3 +1,5 @@
+import './Input.css';
+
 function Input({
   name,
   type,
@@ -6,13 +8,15 @@ function Input({
   placeholder,
   minLength,
   maxLength,
-  // errors,
+  labelText,
+  isValidInput,
+  errorText
 }) {
 
   return (
-    <div className="input">
+    <label className="input">{labelText}
       <input
-        className="input__item"
+        className={isValidInput ? "input__item" : "input__item input__item_errored"}
         name={name}
         type={type}
         value={value}
@@ -23,11 +27,11 @@ function Input({
         autoComplete="off"
         required
         />
-        {/* <span
-          className={`input__error input__error-active`}>
-            {errors.name}
-        </span> */}
-    </div>
+        <span
+          className={isValidInput ? "input__error" : "input__error input__error_active"}>
+            {errorText}
+        </span>
+    </label>
   );
 }
 

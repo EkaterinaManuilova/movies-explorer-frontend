@@ -1,44 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../Logo/Logo";
+import AuthFormHeader from "../AuthFormHeader/AuthFormHeader";
+import './AuthForm.css';
 
 function AuthForm({
   children,
   onSubmit,
   title,
-  isValid,
+  // isValid,
   buttonText,
   linkCaption,
   linkText,
   linkPath,
-  // errors
 }) {
 
+  const isValid = true;
+
   return (
+    <div className="auth">
+    <AuthFormHeader title={title} />
     <form
       className="auth-form"
       onSubmit={onSubmit}
       noValidate
       >
-        <Logo />
-        <h2 className="auth-form__title">{title}</h2>
         <div className="auth-form__inputs">
           {children}
-          {/* <span
-          className={`auth-form__error`}>
-            {errors.name}
-        </span> */}
         </div>
         <button  className={isValid ? "auth-form__button" : "auth-form__button auth-form__button_inactive"}>
           {buttonText}
         </button>
+        <div className="auth-form__link-content">
         <p className="auth-form__link-caption">
           {linkCaption}
         </p>
         <Link className="auth-form__link" to={linkPath}>
           {linkText}
         </Link>
+        </div>
       </form>
+      </div>
   );
 }
 

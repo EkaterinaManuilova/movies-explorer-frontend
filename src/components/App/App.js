@@ -104,8 +104,6 @@ return (
           </Route>
           <Route path="/saved-movies" element={<Footer />}>
           </Route>
-          <Route path="/profile" element={<Footer />}>
-          </Route>
         </Routes>
 
    {/* <Footer /> */}

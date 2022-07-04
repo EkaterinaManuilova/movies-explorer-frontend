@@ -20,6 +20,8 @@ function Login() {
   //   onLogin(email, password);
   // }
 
+  const isValidInput = true;
+
   return (
     <div className="identification">
     <AuthForm
@@ -33,18 +35,21 @@ function Login() {
         <Input
           type="email"
           name="email"
-          // value={email || ""}
-          // onChange={handleEmailChange}
-          placeholder="E-mail"
-          // errors={errors}
+          labelText="E-mail"
+            // value={email || ""}
+            // onChange={handleEmailChange}
+          placeholder="mail@mail.ru"
+          isValidInput={isValidInput}
         />
         <Input
           type="password"
           name="password"
+          labelText="password"
           // value={email || ""}
           // onChange={handlePasswordChange}
-          placeholder="E-mail"
-          // errors={errors}
+          placeholder="********"
+          isValidInput={isValidInput}
+          errorText="Что-то пошло не так..."
         />
     </AuthForm>
   </div>

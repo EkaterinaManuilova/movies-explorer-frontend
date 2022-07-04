@@ -2,7 +2,7 @@ import './Header.css';
 import { React, useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
-import Logo from '../Logo/Logo';
+import LogoContainer from '../LogoConteiner/LogoContainer';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import LoginButton from '../LoginButton/LoginButton';
 import RegButton from '../RegButton/RegButton';
@@ -33,13 +33,13 @@ function handleClickBurgerMenu() {
   return (
     <header className="header">
       <Routes>
-      <Route path="/" element={<Logo />}>
+      <Route path="/" element={<LogoContainer />}>
         </Route>
-        <Route path="/movies" element={<Logo />}>
+        <Route path="/movies" element={<LogoContainer />}>
         </Route>
-        <Route path="/saved-movies" element={<Logo />}>
+        <Route path="/saved-movies" element={<LogoContainer />}>
         </Route>
-        <Route path="/profile" element={<Logo />}>
+        <Route path="/profile" element={<LogoContainer />}>
         </Route>
       </Routes>
 
@@ -72,13 +72,13 @@ function handleClickBurgerMenu() {
 return(
   <header className="header">
      <Routes>
-      <Route path="/" element={<Logo />}>
+      <Route path="/" element={<LogoContainer />}>
         </Route>
-        <Route path="/movies" element={<Logo />}>
+        <Route path="/movies" element={<LogoContainer />}>
         </Route>
-        <Route path="/saved-movies" element={<Logo />}>
+        <Route path="/saved-movies" element={<LogoContainer />}>
         </Route>
-        <Route path="/profile" element={<Logo />}>
+        <Route path="/profile" element={<LogoContainer />}>
         </Route>
       </Routes>
     <div className="header__content">
