@@ -8,4 +8,10 @@
   width: 100px;
   height: 32px;
   margin-top: 18px;
+  transition: opacity linear 0.5s;
+}
+
+.profile-button__link:hover {
+  opacity: 0.6;
+  transition: opacity linear 0.5s;
 }

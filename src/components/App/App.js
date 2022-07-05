@@ -88,11 +88,13 @@ return (
           <Route path="/signin" element={<Login />}>
           </Route>
 
+          <Route path="/profile" element={<Profile />}>
+          </Route>
+          
           <Route path="/" element={<Main />}>
           </Route>
 
-          <Route path="/profile" element={<Profile />}>
-          </Route>
+
           {/* <Route
             path="/*"
               element={<PageNotFound />}>

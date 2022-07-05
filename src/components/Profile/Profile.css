@@ -56,7 +56,14 @@
   font-size: 13px;
   font-weight: 400;
   line-height: 100%;
-  color: #FFFFFF
+  color: #FFFFFF;
+  transition: opacity linear 0.5s;
+}
+
+.profile__submit:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity linear 0.5s;
 }
 
 .profile__logout {
@@ -65,6 +72,11 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 100%;
+  transition: opacity linear 0.5s;
+}
+.profile__logout:hover {
+  opacity: 0.6;
+  transition: opacity linear 0.5s;
 }
 
 @media screen and (max-width:768px) {

@@ -28,7 +28,6 @@ function Profile() {
         </label>
         <button type="submit" className="profile__submit">Редактировать</button>
       </form>
-
       <Link className="profile__logout" to="/">Выйти из аккаунта</Link>
     </div>
   )
