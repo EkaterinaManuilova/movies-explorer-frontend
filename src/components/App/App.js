@@ -6,8 +6,8 @@ import Login from '../Login/Login';
 import Register from "../Register/Register";
 import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
-// import Movies from "../Movies/Movies";
-// import SavedMovies from "../SavedMovies/SavedMovies";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 // import PageNotFound from "../PageNotFound/PageNotFound";
 // import Footer from "../Footer/Footer";
@@ -90,8 +90,14 @@ return (
 
           <Route path="/profile" element={<Profile />}>
           </Route>
-          
+
           <Route path="/" element={<Main />}>
+          </Route>
+
+          <Route path="/movies" element={<Movies />}>
+          </Route>
+
+          <Route path="/saved-movies" element={<SavedMovies />}>
           </Route>
 
 
