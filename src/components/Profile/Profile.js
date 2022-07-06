@@ -2,6 +2,7 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 
 function Profile() {
+  
   return (
     <div className="profile">
       <h2 className="profile__title">Привет, Екатерина!</h2>

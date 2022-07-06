@@ -2,6 +2,7 @@ import './AboutProject.css';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 function AboutProject() {
+  
   return (
     <section className="about-project" id="about-project">
       <SectionTitle title="О проекте" />
@@ -23,7 +24,7 @@ function AboutProject() {
           </p>
         </article>
       </div>
-        <div className="about-project__duration-line">
+      <div className="about-project__duration-line">
         <div className="about-project__duration-line-item about-project__backend-line">1 неделя</div>
         <div className="about-project__duration-line-item about-project__fronend-line">4 недели</div>
         <div className="about-project__duration-line-item about-project__backend-title">Back-end</div>

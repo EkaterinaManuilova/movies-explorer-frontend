@@ -12,6 +12,7 @@
   align-items: center;
   padding-top: 159px;
   padding-bottom: 90px;
+  z-index: 5;
 }
 
 .burger-menu_opened {

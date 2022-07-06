@@ -4,6 +4,7 @@ import photo from "../../images/profile-photo.jpeg";
 import Portfolio from '../Portfolio/Portfolio';
 
 function AboutMe() {
+  
   return (
     <section className="about-me" id="student">
       <SectionTitle title="Студент" />

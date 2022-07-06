@@ -2,6 +2,7 @@ import './SearchForm.css';
 import searchIcon from '../../images/search-icon.svg';
 
 function SearchForm() {
+  
   return (
     <div className="search-form">
       <form className="seacrh-form__form">

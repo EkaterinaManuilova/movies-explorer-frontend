@@ -2,37 +2,14 @@ import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import Input from "../Input/Input";
 
-function Register() {
-  // const [name, setName] = React.useState("");
-  // const [email, setEmail] = React.useState("");
-  // const [password, setPassword] = React.useState("");
-
-  // function handleNameChange(event) {
-  //   setName(event.target.value);
-  // }
-
-  // function handleEmailChange(event) {
-  //   setEmail(event.target.value);
-  // }
-  // function handlePasswordChange(event) {
-  //   setPassword(event.target.value);
-  // }
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   if (! name || !email || !password) {
-  //     return;
-  //   }
-  //   onRegister(name, email, password);
-  // }
+function Register(onSubmit) {
 
   const isValidInput = true;
 
   return (
-    // <div className="identification">
       <AuthForm
-        // onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         title="Добро пожаловать!"
-        // isValid={isValid}
         buttonText="Зарегистрироваться"
         linkCaption="Уже зарегистрированы?"
         linkText="Войти"

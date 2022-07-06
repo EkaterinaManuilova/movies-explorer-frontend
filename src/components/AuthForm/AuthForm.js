@@ -5,25 +5,23 @@ import './AuthForm.css';
 
 function AuthForm({
   children,
-  onSubmit,
   title,
-  // isValid,
   buttonText,
   linkCaption,
   linkText,
   linkPath,
 }) {
 
+
+  function handleSubmitForm(e) {
+    e.preventDefault();
+  }
   const isValid = true;
 
   return (
     <div className="auth">
-    <AuthFormHeader title={title} />
-    <form
-      className="auth-form"
-      onSubmit={onSubmit}
-      noValidate
-      >
+      <AuthFormHeader title={title} />
+      <form  className="auth-form"  onSubmit={handleSubmitForm}  noValidate>
         <div className="auth-form__inputs">
           {children}
         </div>
@@ -31,15 +29,15 @@ function AuthForm({
           {buttonText}
         </button>
         <div className="auth-form__link-content">
-        <p className="auth-form__link-caption">
-          {linkCaption}
-        </p>
-        <Link className="auth-form__link" to={linkPath}>
-          {linkText}
-        </Link>
+          <p className="auth-form__link-caption">
+            {linkCaption}
+          </p>
+          <Link className="auth-form__link" to={linkPath}>
+            {linkText}
+          </Link>
         </div>
       </form>
-      </div>
+    </div>
   );
 }
 

@@ -1,10 +1,11 @@
 import './Button.css';
 
 function Button({buttonText}) {
+
   return (
-      <button className="button">
-        {buttonText}
-      </button>
+    <button className="button">
+      {buttonText}
+    </button>
   )
 }
 

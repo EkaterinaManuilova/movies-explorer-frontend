@@ -1,10 +1,11 @@
 import './Footer.css';
 
 function Footer() {
+  
   return (
     <footer className="footer">
       <h3 className="footer__title">
-      Учебный проект Яндекс.Практикум х BeatFilm.
+        Учебный проект Яндекс.Практикум х BeatFilm.
       </h3>
       <div className="footer__content">
         <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>

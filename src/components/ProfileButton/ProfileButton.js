@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 
 function ProfileButton() {
+
   return (
-      <Link className="profile-button__link" to="/profile">
-        <Button buttonText="Аккаунт" />
-      </Link>
+    <Link className="profile-button__link" to="/profile">
+      <Button buttonText="Аккаунт" />
+    </Link>
   )
 }
 
