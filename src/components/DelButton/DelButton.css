@@ -9,4 +9,10 @@
   height: 30px;
   border-radius: 36px;
   cursor: pointer;
+  transition: opacity linear 0.5s;
+}
+
+.movies-card__delete-button:hover {
+  opacity: 0.8;
+  transition: opacity linear 0.5s;
 }

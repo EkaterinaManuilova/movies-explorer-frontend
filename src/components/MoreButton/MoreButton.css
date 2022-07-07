@@ -10,6 +10,12 @@
   border-radius: 6px;
   display: flex;
   justify-content: center;
+  transition: opacity linear 0.5s;
+}
+
+.more-button:hover {
+  opacity: 0.7;
+  transition: opacity linear 0.5s;
 }
 
 @media screen and (max-width: 450px) {

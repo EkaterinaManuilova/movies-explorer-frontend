@@ -45,7 +45,7 @@
 
 .auth-form__button:hover {
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.8;
   transition: opacity linear 0.5s;
 }
 

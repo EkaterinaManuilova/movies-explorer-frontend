@@ -33,7 +33,6 @@ function Login(onSubmit) {
           // onChange={handlePasswordChange}
           placeholder="********"
           isValidInput={isValidInput}
-          errorText="Что-то пошло не так..."
         />
     </AuthForm>
   </div>

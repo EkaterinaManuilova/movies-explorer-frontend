@@ -2,7 +2,7 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import savedMoviesCardList from '../../utils/savedMoviesCardList';
-import EmptySpace from '../EmptySpace/EmptySpace';
+import Devider from '../Devider/Devider';
 
 function SavedMovies() {
 
@@ -10,7 +10,7 @@ function SavedMovies() {
     <section className="saved-movies">
       <SearchForm />
       <MoviesCardList moviesCardList={savedMoviesCardList} isSaved={true} />
-      <EmptySpace />
+      <Devider />
     </section>
   )
 }

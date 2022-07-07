@@ -64,7 +64,13 @@
   width: 270px;
   height: 327px;
   overflow: hidden;
-  border-radius: 10px
+  border-radius: 10px;
+  transition: transform linear 0.5s;
+}
+
+.about-me__article-photo:hover {
+  transform: scale(1.1);
+  transition: transform linear 0.5s;
 }
 
 .about-me__article-pfoto-img {

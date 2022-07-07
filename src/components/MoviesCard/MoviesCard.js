@@ -20,9 +20,7 @@ function MoviesCard({ moviesCard, isMarked, isSaved }) {
         </div>
         {!isSaved ? <MarkButton  isMarked={isMarked}  />  : <DelButton /> }
       </div>
-      <div>
-        <img className="movies-card__image" src={moviesCard.image} alt={`Фото к фильму ${moviesCard.title}`} />
-      </div>
+      <img className="movies-card__image" src={moviesCard.image} alt={`Фото к фильму ${moviesCard.title}`} />
     </li>
   )
 }

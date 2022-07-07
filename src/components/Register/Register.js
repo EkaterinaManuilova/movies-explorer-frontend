@@ -46,7 +46,6 @@ function Register(onSubmit) {
             errorText="Что-то пошло не так..."
           />
       </AuthForm>
-    // </div>
   );
 }
 

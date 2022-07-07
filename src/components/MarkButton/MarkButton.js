@@ -10,9 +10,7 @@ function MarkButton() {
   }
 
   return (
-    <div>
-       <button type="button" className={!isMarked ? "movies-card__mark-button" : "movies-card__mark-button movies-card__mark-button_marked"} onClick={handleMarkMovie}></button>
-    </div>
+    <button type="button" className={!isMarked ? "movies-card__mark-button" : "movies-card__mark-button movies-card__mark-button_marked"} onClick={handleMarkMovie}></button>
   )
 }
 
