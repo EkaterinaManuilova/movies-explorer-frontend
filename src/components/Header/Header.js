@@ -49,13 +49,13 @@ if (width > breakpoint) {
 
       <div className="header__content">
         <Routes>
-          <Route path="/" element={[<RegButton />, <LoginButton />]}>
+          <Route path="/" element={[<RegButton key={'index0'} />, <LoginButton key={'index1'} />]}>
           </Route>
-          <Route path="/movies" element={[<Navigation />, <ProfileButton />]}>
+          <Route path="/movies" element={[<Navigation key={'index0'} />, <ProfileButton key={'index1'} />]}>
           </Route>
-          <Route path="/saved-movies" element={[<Navigation />, <ProfileButton />]}>
+          <Route path="/saved-movies" element={[<Navigation key={'index0'} />, <ProfileButton key={'index1'} />]}>
           </Route>
-          <Route path="/profile" element={[<Navigation />, <ProfileButton />]}>
+          <Route path="/profile" element={[<Navigation key={'index0'} />, <ProfileButton key={'index1'} />]}>
           </Route>
         </Routes>
       </div>
@@ -77,17 +77,17 @@ if (width > breakpoint) {
       </Routes>
     <div className="header__content">
       <Routes>
-        <Route path="/" element={[<RegButton />, <LoginButton />]}>
+        <Route path="/" element={[<RegButton key={'index0'} />, <LoginButton key={'index1'} />]}>
         </Route>
 
-        <Route path="/movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} />,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
+        <Route path="/movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} key={'index0'} />,
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu} key={'index1'}/>]}></Route>
 
-        <Route path="/saved-movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
+        <Route path="/saved-movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} key={'index0'}/>,
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu} key={'index1'}/>]}></Route>
 
-        <Route path="/profile" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
+        <Route path="/profile" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} key={'index0'}/>,
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu} key={'index1'}/>]}></Route>
       </Routes>
     </div>
   </header>

@@ -27,13 +27,13 @@ return (
           <Route path="/profile" element={<Profile />}>
           </Route>
 
-          <Route path="/" element={[<Main />, <Footer />]}>
+          <Route path="/" element={[<Main key={'index0'} />, <Footer key={'index1'} />]}>
           </Route>
 
-          <Route path="/movies" element={[<Movies />, <Footer />]}>
+          <Route path="/movies" element={[<Movies key={'index0'} />, <Footer key={'index1'} />]}>
           </Route>
 
-          <Route path="/saved-movies" element={[<SavedMovies />, <Footer />]}>
+          <Route path="/saved-movies" element={[<SavedMovies key={'index0'} />, <Footer key={'index1'} />]}>
           </Route>
 
           <Route path="/*"  element={<PageNotFound />}>

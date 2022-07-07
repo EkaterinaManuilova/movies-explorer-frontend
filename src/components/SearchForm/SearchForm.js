@@ -1,8 +1,9 @@
 import './SearchForm.css';
 import searchIcon from '../../images/search-icon.svg';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
-  
+
   return (
     <div className="search-form">
       <form className="seacrh-form__form">
@@ -13,10 +14,7 @@ function SearchForm() {
         </button>
         </div>
       </form>
-      <div className="search-form__short-film">
-        <p className="search-form__short-film-caption">Короткометражки</p>
-        <input className="search-form__short-film-checkbox" type="checkbox" />
-      </div>
+      <FilterCheckbox />
     </div>
   )
 }
