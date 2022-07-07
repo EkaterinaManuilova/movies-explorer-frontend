@@ -29,6 +29,10 @@ function handleClickBurgerMenu() {
   setIsBurgerMenuOpen(!isBurgerMenuOpen);
 }
 
+function handleCloseBurgerMenu() {
+  setIsBurgerMenuOpen(false);
+}
+
 if (width > breakpoint) {
   return (
     <header className="header">
@@ -76,14 +80,14 @@ if (width > breakpoint) {
         <Route path="/" element={[<RegButton />, <LoginButton />]}>
         </Route>
 
-        <Route path="/movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>]}></Route>
+        <Route path="/movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} />,
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
 
         <Route path="/saved-movies" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>]}></Route>
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
 
         <Route path="/profile" element={[<BurgerMenuButton isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>,
-        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu}/>]}></Route>
+        <BurgerMenu isOpen={isBurgerMenuOpen} handleClick={handleClickBurgerMenu} onClose={handleCloseBurgerMenu}/>]}></Route>
       </Routes>
     </div>
   </header>
