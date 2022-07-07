@@ -1,6 +1,7 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import Input from "../Input/Input";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function Login(onSubmit) {
 
@@ -35,6 +36,7 @@ function Login(onSubmit) {
           isValidInput={isValidInput}
         />
     </AuthForm>
+    <InfoTooltip/>
   </div>
   );
 }
