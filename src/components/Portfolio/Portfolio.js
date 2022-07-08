@@ -31,6 +31,8 @@ function Portfolio() {
                     <a
                         className="portfolio__link"
                         href="https://mestofront.students.nomoredomains.xyz/"
+                        target="_blank"
+                        rel="noreferrer"
                     >
                         Одностраничное приложение
                         <span className="portfolio__link-arrow">&#8599;</span>
