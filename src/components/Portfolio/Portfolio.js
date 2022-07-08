@@ -8,7 +8,7 @@ function Portfolio() {
                 <li className="portfolio__list-item">
                     <a
                         className="portfolio__link"
-                        href="https://github.com/EkaterinaManuilova/how-to-learn/tree/master"
+                        href=" https://ekaterinamanuilova.github.io/how-to-learn/"
                         target="_blank"
                         rel="noreferrer"
                     >
