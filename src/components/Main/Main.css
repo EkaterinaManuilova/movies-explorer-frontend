@@ -1,15 +1,14 @@
 .main-content {
-  width: 100%;
-  padding-top: 20px;
-  margin: auto;
+    width: 100%;
+    padding-top: 20px;
+    margin: auto;
 }
 
-@media screen and (max-width:768px) {
-
+@media screen and (max-width: 768px) {
 }
 
 @media screen and (max-width: 450px) {
-  .main-content {
-    padding-top: 14px;
-  }
+    .main-content {
+        padding-top: 14px;
+    }
 }

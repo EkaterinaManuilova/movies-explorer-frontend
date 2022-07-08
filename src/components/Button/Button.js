@@ -1,12 +1,7 @@
-import './Button.css';
+import './Button.css'
 
-function Button({buttonText}) {
-
-  return (
-    <button className="button">
-      {buttonText}
-    </button>
-  )
+function Button({ buttonText }) {
+    return <button className="button">{buttonText}</button>
 }
 
-export default Button;
+export default Button

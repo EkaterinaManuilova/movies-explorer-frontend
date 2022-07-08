@@ -1,13 +1,12 @@
-import './LogoContainer.css';
-import Logo from '../Logo/Logo';
+import './LogoContainer.css'
+import Logo from '../Logo/Logo'
 
 function LogoContainer() {
+    return (
+        <div className="logo-container">
+            <Logo />
+        </div>
+    )
+}
 
-  return (
-    <div className="logo-container">
-      <Logo />
-    </div>
-  )
- }
-
- export default LogoContainer;
+export default LogoContainer

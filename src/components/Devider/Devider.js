@@ -1,10 +1,7 @@
-import './Devider.css';
+import './Devider.css'
 
 function Devider() {
-
-  return (
-    <div className="devider"></div>
-  )
+    return <div className="devider"></div>
 }
 
-export default Devider;
+export default Devider
