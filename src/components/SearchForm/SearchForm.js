@@ -11,6 +11,7 @@ function SearchForm() {
                         className="search-form__form-input"
                         type="text"
                         placeholder="Фильм"
+                        required
                     />
                     <button type="submit" className="search-form__submit">
                         <img

@@ -56,6 +56,11 @@
     transition: opacity linear 0.5s;
 }
 
+.search-form__submit-icon {
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
 @media screen and (max-width: 768px) {
     .search-form {
         flex-direction: column;
@@ -73,5 +78,9 @@
     .search-form {
         padding-bottom: 107px;
         gap: 45px;
+    }
+
+    .search-form__form-input {
+      width: 81%;
     }
 }

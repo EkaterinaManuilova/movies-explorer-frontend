@@ -88,6 +88,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .technology {
+    background-color: #202020;
+}
+
     .technology__title {
         font-size: 30px;
         line-height: 100%;
