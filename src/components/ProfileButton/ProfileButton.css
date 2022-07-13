@@ -1,0 +1,17 @@
+.profile-button__link {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #272727;
+    border-radius: 25px;
+    width: 100px;
+    height: 32px;
+    margin-top: 18px;
+    transition: opacity linear 0.5s;
+}
+
+.profile-button__link:hover {
+    opacity: 0.7;
+    transition: opacity linear 0.5s;
+}

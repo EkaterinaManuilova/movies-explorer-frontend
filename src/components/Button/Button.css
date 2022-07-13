@@ -1,0 +1,24 @@
+.button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 20px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 110%;
+    cursor: pointer;
+    transition: opacity linear 0.5s;
+}
+
+/* .button:hover {
+  opacity: 0.8;
+  transition: opacity linear 0.5s;
+} */
+
+@media screen and (max-width: 450px) {
+    .button {
+        padding: 5px 12px;
+        font-size: 10px;
+        line-height: 132%;
+    }
+}
