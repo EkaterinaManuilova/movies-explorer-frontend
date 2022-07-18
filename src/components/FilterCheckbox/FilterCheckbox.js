@@ -1,6 +1,8 @@
 import './FilterCheckbox.css'
 
-function FilterCheckbox() {
+function FilterCheckbox({onChange}) {
+
+  
     return (
         <div className="filter-checkbox">
             <p className="filter-checkbox__caption">Короткометражки</p>

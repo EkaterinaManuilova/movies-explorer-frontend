@@ -15,9 +15,13 @@ function Movies() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const handleSearchMovies = () => {
+
+    }
+
     return (
         <section className="movies">
-            <SearchForm />
+            <SearchForm onSearchMovies={handleSearchMovies} />
             {!isLoading ? (
                 <Preloader />
             ) : (
