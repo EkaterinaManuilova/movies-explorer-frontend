@@ -10,23 +10,22 @@ function AuthForm({
     linkCaption,
     linkText,
     linkPath,
+    onSubmit,
+    isDisabled,
+
 }) {
-    function handleSubmitForm(e) {
-        e.preventDefault()
-    }
-    const isValid = true
+    // function handleSubmitForm(e) {
+    //     e.preventDefault()
+    // }
+    // const isValid = true
 
     return (
         <div className="auth">
             <AuthFormHeader title={title} />
-            <form className="auth-form" onSubmit={handleSubmitForm} noValidate>
+            <form className="auth-form" onSubmit={onSubmit} noValidate>
                 <div className="auth-form__inputs">{children}</div>
-                <button
-                    className={
-                        isValid
-                            ? 'auth-form__button'
-                            : 'auth-form__button auth-form__button_inactive'
-                    }
+                <button disabled={isDisabled}
+                    className="auth-form__button"
                 >
                     {buttonText}
                 </button>

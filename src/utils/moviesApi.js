@@ -12,7 +12,7 @@ class MoviesApi {
     }
 
     getInitialMovies() {
-        return fetch(`${this._baseUrl}/movies`, {
+        return fetch(`${this._baseUrl}`, {
             headers: this._headers,
         }).then(this._getResponseData)
     }

@@ -9,18 +9,14 @@ function Input({
     minLength,
     maxLength,
     labelText,
-    isValidInput,
+    // isValidInput,
     errorText,
 }) {
     return (
         <label className="input">
             {labelText}
             <input
-                className={
-                    isValidInput
-                        ? 'input__item'
-                        : 'input__item input__item_errored'
-                }
+                className='input__item'
                 name={name}
                 type={type}
                 value={value}
@@ -32,11 +28,8 @@ function Input({
                 required
             />
             <span
-                className={
-                    isValidInput
-                        ? 'input__error'
-                        : 'input__error input__error_active'
-                }
+                className='input__error input__error_active'
+
             >
                 {errorText}
             </span>

@@ -22,5 +22,10 @@
 }
 
 .main-nav__link_active {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 13px;
     font-weight: 500;
+    line-height: 114%;
+    transition: opacity linear 0.5s;
 }

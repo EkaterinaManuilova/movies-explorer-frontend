@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox'
 
 function SearchForm() {
     return (
-        <div className="search-form">
+        <div className="search-form" noValidate>
             <form className="seacrh-form__form">
                 <div className="seacrh-form__form-conteiner">
                     <input

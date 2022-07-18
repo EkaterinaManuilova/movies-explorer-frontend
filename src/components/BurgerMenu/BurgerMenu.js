@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './BurgerMenu.css'
 import closeIcon from '../../images/close-icon.svg'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import ProfileButton from '../ProfileButton/ProfileButton'
 
 function BurgerMenu({ isOpen, handleClick, onClose }) {
@@ -48,27 +48,30 @@ function BurgerMenu({ isOpen, handleClick, onClose }) {
                 </button>
                 <nav className="burger-menu-nav">
                     <React.Fragment>
-                        <Link
-                            className="burger-menu-nav__link"
+                        <NavLink
+                        className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
+exact
                             to="/"
                             onClick={onClose}
                         >
                             Главная
-                        </Link>
-                        <Link
-                            className="burger-menu-nav__link burger-menu-nav__link_active"
+                        </NavLink>
+                        <NavLink
+                             className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
+                             exact
                             to="/movies"
                             onClick={onClose}
                         >
                             Фильмы
-                        </Link>
-                        <Link
-                            className="burger-menu-nav__link"
+                        </NavLink>
+                        <NavLink
+                             className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
+                             exact
                             to="/saved-movies"
                             onClick={onClose}
                         >
                             Сохраненные фильмы
-                        </Link>
+                        </NavLink>
                     </React.Fragment>
                 </nav>
                 <ProfileButton />

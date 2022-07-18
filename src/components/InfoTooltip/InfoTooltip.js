@@ -4,19 +4,11 @@ import { useEffect, useState } from 'react'
 import Success from '../../images/success.svg'
 import Fail from '../../images/fail.svg'
 
-function InfoTooltip({ onClose, isSuccess }) {
+function InfoTooltip({ onClose, isRegSuccess }) {
     const [isOpenInfoTooltip, setIsOPenInfoTooltip] = useState(false)
-    // const [isSuccess, setIsSuccess] = useState(false);
-    //const isSuccess = true;//false покажет окно с ошибкой, сейчас пример: в Регистрации - ошибка, Авторизация - успешно
-    // const isOpenInfoTooltip=true;
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsOPenInfoTooltip(true), 6000)
-        return () => clearTimeout(timer)
-    }, [])
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsOPenInfoTooltip(false), 3000)
+        const timer = setTimeout(() => setIsOPenInfoTooltip(false), 6000)
         return () => clearTimeout(timer)
     })
 
@@ -51,11 +43,11 @@ function InfoTooltip({ onClose, isSuccess }) {
                 <div className="popup__form-container">
                     <img
                         className="popup__image"
-                        src={isSuccess ? Success : Fail}
-                        alt={isSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
+                        src={isRegSuccess ? Success : Fail}
+                        alt={isRegSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
                     />
                     <p className="popup__message">
-                        {isSuccess
+                        {isRegSuccess
                             ? 'Успешно'
                             : 'Что-то пошло не так! Попробуйте ещё раз.'}
                     </p>
