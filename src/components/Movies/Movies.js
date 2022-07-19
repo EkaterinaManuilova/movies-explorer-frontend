@@ -149,7 +149,7 @@ function Movies({ moviesCardList, onSave, onDelete}) {
               // isSaved={false}
           />
                 ) : (
-                  <span className="movies__mesage">{!isLoading ? 'Ничего не найдено.' : {searchMessage}}</span>
+                  <span className="movies__message">{!isLoading ? 'Ничего не найдено.' : {searchMessage}}</span>
                 )
 
           ) : (
