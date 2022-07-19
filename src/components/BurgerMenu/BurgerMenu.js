@@ -50,7 +50,7 @@ function BurgerMenu({ isOpen, handleClick, onClose }) {
                     <React.Fragment>
                         <NavLink
                         className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-exact
+                        exact="true"
                             to="/"
                             onClick={onClose}
                         >
@@ -58,7 +58,7 @@ exact
                         </NavLink>
                         <NavLink
                              className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-                             exact
+                             exact="true"
                             to="/movies"
                             onClick={onClose}
                         >
@@ -66,7 +66,7 @@ exact
                         </NavLink>
                         <NavLink
                              className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-                             exact
+                             exact="true"
                             to="/saved-movies"
                             onClick={onClose}
                         >
