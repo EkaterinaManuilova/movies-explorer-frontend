@@ -1,31 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useLocation, matchPath } from 'react-router'
 import MarkButton from '../MarkButton/MarkButton'
 import DelButton from '../DelButton/DelButton'
+import { getTimeFromMin } from '../../utils/utils'
 import './MoviesCard.css'
 
-function MoviesCard({ moviesCard, isMarked, isSaved }) {
-    // const [isSavedMovie, setIsSavedMovie] = useState(false);
+function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
+  const isSaved = moviesCard.id && moviesCardList.some((m) => m.id === moviesCard.id)
+  const [isSavedMovie, setIsSavedMovie] = useState(false);
+  const location = useLocation();
 
-    // function handleSaveMovie() {
-    //   setIsSavedMovie(!isSavedMovie);
-    // }
+  function handleClickMovie() {
+    if(isSaved) {
+      onDelete(moviesCardList.filter((m) => m.id ===  moviesCard.id)[0])
+    }
+    onSave(moviesCard)
+    setIsSavedMovie(!isSavedMovie)
+  }
+  function handleDeleteClick() {
+    console.log(moviesCard)
+    onDelete(moviesCard)
+    setIsSavedMovie(false)
+  }
 
     return (
         <li className="movies-card" key={moviesCard.id}>
             <div className="movies-card__head">
                 <div className="movies-card__head-info">
-                    <h2 className="movies-card__title">{moviesCard.title}</h2>
+                    <h2 className="movies-card__title">{moviesCard.nameRU}</h2>
                     <p className="movies-card__duration">
-                        {moviesCard.duration}
+                        {getTimeFromMin(moviesCard.duration)}
                     </p>
                 </div>
-                {!isSaved ? <MarkButton isMarked={isMarked} /> : <DelButton />}
+                { matchPath({path: '/movies'} ,location.pathname) && (
+                  <MarkButton isSavedMovie={isSavedMovie} onClick={handleClickMovie} />
+                )}
+                { matchPath({path: '/saved-movies'} ,location.pathname) && (
+                  <DelButton  onClick={handleDeleteClick} />
+                )}
             </div>
-            <img
+            <a className="movies-card__link" href={moviesCard.trailerLink} target="_blank" rel="noreferrer">
+                          <img
                 className="movies-card__image"
-                src={moviesCard.image}
-                alt={`Фото к фильму ${moviesCard.title}`}
+                src={`https://api.nomoreparties.co/${moviesCard.image.url}`}
+                alt={`Фото к фильму ${moviesCard.nameRu}`}
             />
+            </a>
         </li>
     )
 }

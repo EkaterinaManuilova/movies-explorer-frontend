@@ -24,6 +24,8 @@ function App() {
 
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
+  const [savedMovies, setSavedMovies] = useState([])
+
 
 //получение данных юзера
 useEffect(() => {
@@ -48,7 +50,7 @@ useEffect(() => {
         .register(userData)
         .then(() => {
             setIsRegSuccess(true)
-            navigate('/signin')
+            handleAuthorize(userData);
         })
         .catch((err) => {
             console.log(err)
@@ -100,6 +102,28 @@ const handleLogOut = () => {
   navigate('/')
 }
 
+//сохранение фильма в Сохраненные фильмы
+const handleSaveMovie = (movie) => {
+  mainApi.saveMovie(movie)
+.then((newMovie) => {
+  setSavedMovies([newMovie, ...savedMovies])
+})
+.catch((err) => {
+  console.log(err)
+})
+}
+
+//удаление фильма из Сохраненных фильмов
+const handleDeleteMovie = (movie) => {
+  mainApi.deleteMovie(movie._id)
+  .then(()=> {
+    setSavedMovies((movies) => movies.filter((m) => m._id !== movie._id))
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
     return (
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page-container">
@@ -123,7 +147,12 @@ const handleLogOut = () => {
                 <Route
                     path="/movies"
                     element={[
-                        <Movies key={'index0'} />,
+                        <Movies
+                        key={'index0'}
+                        onSave={handleSaveMovie}
+                        onDelete={handleDeleteMovie}
+                        moviesCardList={savedMovies}
+                        />,
                         <Footer key={'index1'} />,
                     ]}
                 ></Route>
@@ -131,7 +160,11 @@ const handleLogOut = () => {
                 <Route
                     path="/saved-movies"
                     element={[
-                        <SavedMovies key={'index0'} />,
+                        <SavedMovies
+                        key={'index0'}
+                        onDelete={handleDeleteMovie}
+                        moviesCardList={savedMovies}
+                        />,
                         <Footer key={'index1'} />,
                     ]}
                 ></Route>
