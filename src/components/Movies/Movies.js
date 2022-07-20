@@ -3,7 +3,6 @@ import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreButton from '../MoreButton/MoreButton'
-// import moviesCardList from '../../utils/moviesCardList'
 import Preloader from '../Preloader/Preloader'
 import moviesApi from '../../utils/moviesApi'
 import { searchAndFilterMovies } from '../../utils/utils'
@@ -25,7 +24,7 @@ function Movies({ moviesCardList, onSave, onDelete}) {
     const [count, setCount] = useState(0)
     const [additional, setAdditional] = useState(0)
 
-    const windowSize = window.innerWidth
+    const windowSize = document.documentElement.clientWidth
 
     useEffect(() => {
       if (windowSize > 768) {
@@ -40,22 +39,10 @@ function Movies({ moviesCardList, onSave, onDelete}) {
         }
     }, [windowSize])
 
-    useEffect(() => {
-      if (searchedMovies.length > 0) {
-        if (searchedMovies.length > count){
-          setToRenderMovies(searchedMovies.slice(0, count))
-          console.log(toRenderMovies)
-          setIsMore(true)
-        } else {
-          setToRenderMovies(searchedMovies)
-          console.log(toRenderMovies)
-        }
-      }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [count, searchedMovies])
 
-    const handleMoreMoviesLoad = () => {
-      setToRenderMovies((state) => searchedMovies.slice(0, state.length + additional))
+
+    const handleMoreMoviesLoad = (e) => {
+      setToRenderMovies(((prev)=> searchedMovies.slice(0, prev.length + additional)))
       console.log(toRenderMovies)
 
     }
@@ -79,19 +66,47 @@ function Movies({ moviesCardList, onSave, onDelete}) {
   }, [checkBoxStatus, keyWord])
 
   useEffect(() => {
+    if (searchedMovies.length > 0) {
+      if (searchedMovies.length > count){
+        setToRenderMovies(searchedMovies.slice(0, count))
+        console.log(searchedMovies.slice(0, count))
+        setIsMore(true)
+      } else {
+        setToRenderMovies(searchedMovies)
+        console.log(toRenderMovies)
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count, searchedMovies])
+
+  useEffect(() => {
     if (initialMovies.length > 0) {
-      const resultMovies = searchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
-      console.log(resultMovies)
-      setSearchedMovies(resultMovies)
+      const searchedMovies = searchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
+      // console.log(resultMovies)
+      setSearchedMovies(searchedMovies)
       console.log(searchedMovies)
       setIsSearchComplited(true)
       localStorage.setItem('keyWord', keyWord)
       localStorage.setItem('checkBoxStatus', checkBoxStatus)
-      localStorage.setItem('searchedMovies', resultMovies)
+      localStorage.setItem('searchedMovies', searchedMovies)
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkBoxStatus, initialMovies, keyWord])
+
+  useEffect(() => {
+    if (searchedMovies.length > 0) {
+      if (searchedMovies.length > count){
+        setToRenderMovies(searchedMovies.slice(0, count))
+        console.log(toRenderMovies)
+        setIsMore(true)
+      } else {
+        setToRenderMovies(searchedMovies)
+        console.log(toRenderMovies)
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count, searchedMovies])
 
 
     // useEffect(() => {
@@ -106,7 +121,6 @@ function Movies({ moviesCardList, onSave, onDelete}) {
       setCheckBoxStatus(checkBoxStatus)
 
       const initialMoviesArr = JSON.parse(localStorage.getItem('initialMovies'))
-      // console.log(initialMoviesArr)
 
       if (!initialMoviesArr) {
         setIsLoading(true)
