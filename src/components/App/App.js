@@ -45,6 +45,18 @@ useEffect(() => {
   }
 }, [loggedIn])
 
+// получение фильмов юзера
+useEffect (() => {
+  handleTokenCheck()
+  if (loggedIn) {
+    mainApi.getSavedMovies()
+    .then((data) => {
+      setSavedMovies(data.filter((item) => item.owned === currentUser._id))
+    })
+    .catch((err) => console.log(err))
+  }
+}, [currentUser, loggedIn])
+
   const handleRegister= (userData) => {
     mainApi
         .register(userData)
