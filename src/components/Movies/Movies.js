@@ -5,9 +5,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreButton from '../MoreButton/MoreButton'
 import Preloader from '../Preloader/Preloader'
 import moviesApi from '../../utils/moviesApi'
-import { searchAndFilterMovies } from '../../utils/utils'
+import {
+    searchAndFilterMovies,
+    findShortMovies,
+    changeMovies,
+} from '../../utils/utils'
 
-function Movies({ moviesCardList, onSave, onDelete}) {
+function Movies({ moviesCardList, onSave, onDelete }) {
     const [isLoading, setIsLoading] = useState(false)
     const [searchMessage, setSearchMessage] = useState('')
     const [isSearchComplited, setIsSearchComplited] = useState(false)
@@ -27,7 +31,7 @@ function Movies({ moviesCardList, onSave, onDelete}) {
     const windowSize = document.documentElement.clientWidth
 
     useEffect(() => {
-      if (windowSize > 768) {
+        if (windowSize > 768) {
             setCount(12)
             setAdditional(3)
         } else if (windowSize <= 768 && windowSize >= 450) {
@@ -39,136 +43,125 @@ function Movies({ moviesCardList, onSave, onDelete}) {
         }
     }, [windowSize])
 
-
-
-    const handleMoreMoviesLoad = (e) => {
-      setToRenderMovies(((prev)=> searchedMovies.slice(0, prev.length + additional)))
-      console.log(toRenderMovies)
-
+    const handleMoreMoviesLoad = () => {
+        setToRenderMovies((prev) =>
+            searchedMovies.slice(0, prev.length + additional)
+        )
     }
 
     useEffect(() => {
-      if (toRenderMovies.length === searchedMovies.length) {
-        setIsMore(false)
-      }
+        if (toRenderMovies.length === searchedMovies.length) {
+            setIsMore(false)
+        }
     }, [searchedMovies.length, toRenderMovies])
 
+    useEffect(() => {
+        setIsMore(false)
+    }, [])
 
-  useEffect(() => {
-    setIsSearchComplited(false)
-    if (localStorage.getItem('searchedMovies')) {
-      const previos = localStorage.getItem('searchedMovies')
-      const resultMovies = searchAndFilterMovies(previos, keyWord, checkBoxStatus)
-      setSearchedMovies(resultMovies)
-      setIsSearchComplited(true)
+    useEffect(() => {
+        if (searchedMovies.length > 0) {
+            if (searchedMovies.length > count) {
+                setToRenderMovies(searchedMovies.slice(0, count))
+
+                setIsMore(true)
+            } else {
+                setToRenderMovies(searchedMovies)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [count, searchedMovies])
+
+    const handleSearchAndFilterMovies = (movies, kyeWord, checkBoxStatus) => {
+        const moviesList = searchAndFilterMovies(
+            movies,
+            kyeWord,
+            checkBoxStatus
+        )
+
+        setSearchedMovies(moviesList)
+        localStorage.setItem('movies', JSON.stringify(moviesList))
+
+        setIsSearchComplited(true)
     }
-
-  }, [checkBoxStatus, keyWord])
-
-  useEffect(() => {
-    if (searchedMovies.length > 0) {
-      if (searchedMovies.length > count){
-        setToRenderMovies(searchedMovies.slice(0, count))
-        console.log(searchedMovies.slice(0, count))
-        setIsMore(true)
-      } else {
-        setToRenderMovies(searchedMovies)
-        console.log(toRenderMovies)
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, searchedMovies])
-
-  useEffect(() => {
-    if (initialMovies.length > 0) {
-      const searchedMovies = searchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
-      // console.log(resultMovies)
-      setSearchedMovies(searchedMovies)
-      console.log(searchedMovies)
-      setIsSearchComplited(true)
-      localStorage.setItem('keyWord', keyWord)
-      localStorage.setItem('checkBoxStatus', checkBoxStatus)
-      localStorage.setItem('searchedMovies', searchedMovies)
-    }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkBoxStatus, initialMovies, keyWord])
-
-  useEffect(() => {
-    if (searchedMovies.length > 0) {
-      if (searchedMovies.length > count){
-        setToRenderMovies(searchedMovies.slice(0, count))
-        console.log(toRenderMovies)
-        setIsMore(true)
-      } else {
-        setToRenderMovies(searchedMovies)
-        console.log(toRenderMovies)
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, searchedMovies])
-
-
-    // useEffect(() => {
-    //     const timer = setTimeout(() => setIsLoading(!isLoading), 3000)
-    //     return () => clearTimeout(timer)
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
 
     const handleSearchMovies = (keyWord, checkBoxStatus) => {
-      setToRenderMovies([])
-      setKeyWord(keyWord)
-      setCheckBoxStatus(checkBoxStatus)
-
-      const initialMoviesArr = JSON.parse(localStorage.getItem('initialMovies'))
-
-      if (!initialMoviesArr) {
         setIsLoading(true)
-        moviesApi.getInitialMovies()
-    .then((initialMovies) => {
-      setInitialMovies(initialMovies)
-      console.log(initialMovies)
-      localStorage.setItem('initialMovies', initialMovies)
-    })
-    .catch((err) => {
-      setSearchMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
-      console.log(err)
-      localStorage.removeItem('initialMovies')
-    })
-    .finally(() => {
-      setIsLoading(false)
-    })
-      } else {
-        setInitialMovies(initialMoviesArr)
-        console.log(initialMoviesArr)
-      }
+        setKeyWord(keyWord)
+        setCheckBoxStatus(checkBoxStatus)
+
+        localStorage.setItem('keyWord', keyWord)
+        localStorage.setItem('checkBoxStatus', checkBoxStatus)
+
+        if (!initialMovies.length) {
+            moviesApi
+                .getInitialMovies()
+                .then((data) => {
+                    changeMovies(data)
+                    setInitialMovies(data)
+                    handleSearchAndFilterMovies(data, keyWord, checkBoxStatus)
+                })
+                .catch((err) => {
+                    setSearchMessage(
+                        'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
+                    )
+                    localStorage.removeItem('movies')
+                    console.log(err)
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
+        } else {
+            handleSearchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
+
+            setIsLoading(false)
+        }
     }
 
+    useEffect(() => {
+        const arrMovies = JSON.parse(localStorage.getItem('movies'))
+
+        setToRenderMovies(arrMovies)
+        if (arrMovies && !keyWord) {
+            setCheckBoxStatus(checkBoxStatus)
+            setSearchedMovies(
+                checkBoxStatus ? findShortMovies(arrMovies) : arrMovies
+            )
+            setIsSearchComplited(true)
+        }
+    }, [checkBoxStatus, keyWord])
+
+    useEffect(() => {
+        if (keyWord) {
+            const arrMovies = searchAndFilterMovies(
+                initialMovies,
+                keyWord,
+                checkBoxStatus
+            )
+            setSearchedMovies(arrMovies)
+        }
+    }, [keyWord, checkBoxStatus, initialMovies])
 
     return (
         <section className="movies">
             <SearchForm onSearchMovies={handleSearchMovies} />
             {isLoading ? (
                 <Preloader />
-            ) : (
-              isSearchComplited ? (
-                toRenderMovies.length > 0
-                ?
-                (
-                  <MoviesCardList
-              movies={toRenderMovies}
-              moviesCardList={moviesCardList}
-                  onSave={onSave}
-                  onDelete={onDelete}
-              // isSaved={false}
-          />
+            ) : isSearchComplited ? (
+                toRenderMovies.length > 0 ? (
+                    <MoviesCardList
+                        movies={toRenderMovies}
+                        moviesCardList={moviesCardList}
+                        onSave={onSave}
+                        onDelete={onDelete}
+                    />
                 ) : (
-                  <span className="movies__message">{!isLoading ? 'Ничего не найдено.' : {searchMessage}}</span>
+                    <span className="movies__message">
+                        {!isLoading ? 'Ничего не найдено.' : { searchMessage }}
+                    </span>
                 )
-
-          ) : (
-            ''
-            )
+            ) : (
+                ''
             )}
             {isMore && <MoreButton onClick={handleMoreMoviesLoad} />}
         </section>

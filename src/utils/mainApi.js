@@ -74,7 +74,7 @@ class MainApi {
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
+    id,
   }) {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
@@ -82,13 +82,13 @@ class MainApi {
       body: JSON.stringify({
         country: country || 'unknown',
         director: director || 'unknown',
-        duration,
+        duration: duration,
         year: year || 'no data',
         description: description || 'no data',
-        image,
-        trailerLink,
-        thumbnail: thumbnail || image,
-        movieId: movieId || Math.floor(Math.random() * 101),
+        image: image,
+        trailerLink: trailerLink,
+        thumbnail: thumbnail,
+        movieId: id,
         nameRU: nameRU ||'no name',
         nameEN: nameEN || 'no name',
       }),

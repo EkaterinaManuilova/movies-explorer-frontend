@@ -1,39 +1,43 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, matchPath } from 'react-router'
 
 import './SearchForm.css'
 import searchIcon from '../../images/search-icon.svg'
 
-function SearchForm({ onSearchMovies }) {
+function SearchForm({ onSearchMovies, savedMoviesRoute }) {
     const [keyWord, setKeyWord] = useState('')
     const [checkBoxStatus, setCheckBoxStatus] = useState(false)
 
     const [error, setError] = useState(false)
 
-    const location = useLocation()
+    useEffect(() => {
+        if (!savedMoviesRoute) {
+            const query = localStorage.getItem('keyWord')
+            console.log(query)
+            if (query) {
+                setKeyWord(query)
+            }
+        }
+    }, [savedMoviesRoute])
 
     useEffect(() => {
-        const status = localStorage.getItem('checkBoxStatus')
-        if (matchPath({ path: '/movies' }, location.pathname)) {
-            const word = localStorage.getItem('word')
-            if (word) {
-                setKeyWord(word)
-            }
+        if (!savedMoviesRoute) {
+            const status = localStorage.getItem('checkBoxStatus')
+            console.log(JSON.parse(status))
             if (JSON.parse(status) === true) {
                 setCheckBoxStatus(true)
             } else {
                 setCheckBoxStatus(false)
             }
         }
-    }, [location.pathname])
+    }, [savedMoviesRoute])
 
     const handleSubmitSearchForm = (e) => {
         e.preventDefault()
-        if(!keyWord) {
-          setError(true)
+        if (!keyWord) {
+            setError(true)
         } else {
-          setError(false)
-        onSearchMovies(keyWord, checkBoxStatus)
+            setError(false)
+            onSearchMovies(keyWord, checkBoxStatus)
         }
     }
 
@@ -76,14 +80,22 @@ function SearchForm({ onSearchMovies }) {
                     </button>
                 </div>
                 <div className="search-form__filter">
-                    <p className="search-form__filter-caption">Короткометражки</p>
+                    <p className="search-form__filter-caption">
+                        Короткометражки
+                    </p>
                     <label className="search-form__filter-checkbox">
-                    <input
-                        className="search-form__checkbox"
-                        type="checkbox"
-                        onChange={handleCheckBoxChange}
-                    />
-                    <span className={!checkBoxStatus ? "search-form__checkbox-cover-off" : "search-form__checkbox-cover-on"}></span>
+                        <input
+                            className="search-form__checkbox"
+                            type="checkbox"
+                            onChange={handleCheckBoxChange}
+                        />
+                        <span
+                            className={
+                                !checkBoxStatus
+                                    ? 'search-form__checkbox-cover-off'
+                                    : 'search-form__checkbox-cover-on'
+                            }
+                        ></span>
                     </label>
                 </div>
             </form>

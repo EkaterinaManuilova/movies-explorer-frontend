@@ -1,7 +1,14 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-function MoviesCardList({ movies, moviesCardList, onSave, onDelete, isMarked, isSaved }) {
+function MoviesCardList({
+    movies,
+    moviesCardList,
+    onSave,
+    onDelete,
+    isMarked,
+    isSaved,
+}) {
     return (
         <div className="movies-card-lis-container">
             <ul className="movies-card-list">

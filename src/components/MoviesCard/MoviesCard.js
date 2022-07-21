@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLocation, matchPath } from 'react-router'
 import MarkButton from '../MarkButton/MarkButton'
 import DelButton from '../DelButton/DelButton'
@@ -6,22 +6,25 @@ import { getTimeFromMin } from '../../utils/utils'
 import './MoviesCard.css'
 
 function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
-  const isSaved = moviesCard.id && moviesCardList.some((m) => m.id === moviesCard.id)
-  const [isSavedMovie, setIsSavedMovie] = useState(false);
-  const location = useLocation();
+    const isSaved =
+        moviesCard.id && moviesCardList.some((m) => m.movieId === moviesCard.id)
+    const location = useLocation()
 
-  function handleClickMovie() {
-    if(isSaved) {
-      onDelete(moviesCardList.filter((m) => m.id ===  moviesCard.id)[0])
+    function handleClickMovie() {
+        if (isSaved) {
+            onDelete(
+                moviesCardList.filter((m) => m.movieId === moviesCard.id)[0]
+            )
+        } else {
+            onSave(moviesCard)
+            console.log(moviesCard)
+        }
     }
-    onSave(moviesCard)
-    setIsSavedMovie(!isSavedMovie)
-  }
-  function handleDeleteClick() {
-    console.log(moviesCard)
-    onDelete(moviesCard)
-    setIsSavedMovie(false)
-  }
+
+    function handleDeleteClick() {
+        console.log(moviesCard)
+        onDelete(moviesCard)
+    }
 
     return (
         <li className="movies-card" key={moviesCard.id}>
@@ -32,19 +35,27 @@ function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
                         {getTimeFromMin(moviesCard.duration)}
                     </p>
                 </div>
-                { matchPath({path: '/movies'} ,location.pathname) && (
-                  <MarkButton isSavedMovie={isSavedMovie} onClick={handleClickMovie} />
+                {matchPath({ path: '/movies' }, location.pathname) && (
+                    <MarkButton
+                        isSavedMovie={isSaved}
+                        onClick={handleClickMovie}
+                    />
                 )}
-                { matchPath({path: '/saved-movies'} ,location.pathname) && (
-                  <DelButton  onClick={handleDeleteClick} />
+                {matchPath({ path: '/saved-movies' }, location.pathname) && (
+                    <DelButton onClick={handleDeleteClick} />
                 )}
             </div>
-            <a className="movies-card__link" href={moviesCard.trailerLink} target="_blank" rel="noreferrer">
-                          <img
-                className="movies-card__image"
-                src={`https://api.nomoreparties.co/${moviesCard.image.url}`}
-                alt={`Фото к фильму ${moviesCard.nameRu}`}
-            />
+            <a
+                className="movies-card__link"
+                href={moviesCard.trailerLink}
+                target="_blank"
+                rel="noreferrer"
+            >
+                <img
+                    className="movies-card__image"
+                    src={moviesCard.image}
+                    alt={`Фото к фильму ${moviesCard.nameRu}`}
+                />
             </a>
         </li>
     )
