@@ -26,6 +26,8 @@ function App() {
 
     const [savedMovies, setSavedMovies] = useState([])
 
+    const [profileMessage, setProfileMessage] = useState('')
+
     //получение данных юзера
     useEffect(() => {
         handleTokenCheck()
@@ -67,6 +69,7 @@ function App() {
             .register(userData)
             .then(() => {
                 setIsRegSuccess(true)
+                setIsInfoTooltipOpen(true)
                 handleAuthorize(userData)
             })
             .catch((err) => {
@@ -107,9 +110,24 @@ function App() {
     }
 
     const handleUpdateProfile = (userData) => {
-        mainApi.updateProfile(userData).then((newUserData) => {
-            setCurrentUser(newUserData).catch((err) => console.log(err))
-        })
+        mainApi
+            .updateProfile(userData)
+            .then((newUserData) => {
+                setCurrentUser(newUserData)
+                setProfileMessage('Данные успешно обновлены.')
+            })
+            .catch((err) => {
+                console.log(err)
+                if (err === 409) {
+                    setProfileMessage(
+                        'Пользователь с данным email уже существует.'
+                    )
+                } else {
+                    setProfileMessage(
+                        'При обновлении данных произошла ошибка.'
+                    )
+                }
+            })
     }
 
     const handleLogOut = () => {
@@ -180,6 +198,7 @@ function App() {
                                 <Profile
                                     onLogout={handleLogOut}
                                     onUpdateProfile={handleUpdateProfile}
+                                    message={profileMessage}
                                 />
                             }
                         ></Route>

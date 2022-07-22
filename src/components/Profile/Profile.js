@@ -1,23 +1,87 @@
 import './Profile.css'
 import { Link } from 'react-router-dom'
-import useFormValidation from '../../utils/FormValidation'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import React from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import React, { useEffect, useState } from 'react'
 
-function Profile({ onUpdateProfile, onLogout }) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, resetForm, errors, isValid } = useFormValidation();
-  const isDisabled = !isValid
-React.useEffect(() => {
-resetForm(currentUser, {}, false);
-}, [currentUser, resetForm])
-  function handleSubmitProfileForm(e) {
-    e.preventDefault()
-    onUpdateProfile(values)
-  }
+function Profile({ onUpdateProfile, onLogout, message }) {
+    const currentUser = React.useContext(CurrentUserContext)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [errorName, setErrorName] = useState('')
+    const [errorEmail, setErrorEmail] = useState('')
+    const [isInputDisabled, setIsInputDisabled] = useState(true)
+    const [isFormValid, setIsFormValid] = useState(false)
+    const [isMessage, setIsMessage] = useState(false)
+
+    useEffect(() => {
+        setName(currentUser.name)
+        setEmail(currentUser.email)
+    }, [currentUser])
+
+    const handleChangeName = (e) => {
+        if (!e.target.value.length) {
+            setErrorName('Имя пользователя должно быть заполнено.')
+        } else if (e.target.value.length < 2) {
+            setErrorName('Имя пользователя должно быть не менее 2 символов.')
+        } else if (e.target.value.length > 30) {
+            setErrorName('Имя пользователя должно быть не более 30 символов.')
+        } else {
+            setErrorName('')
+        }
+        setName(e.target.value)
+    }
+
+    const handleChangeEmail = (e) => {
+        const validEmail =
+            /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/i.test(
+                e.target.value
+            )
+
+        if (!e.target.value.length) {
+            setErrorEmail('Электронная почта должна быть заполнена.')
+        } else if (!validEmail) {
+            setErrorEmail('Неверный формат электронной почты.')
+        } else {
+            setErrorEmail('')
+        }
+        setEmail(e.target.value)
+    }
+
+    const handleInputDisabled = () => {
+        setIsInputDisabled(!isInputDisabled)
+    }
+
+    function handleSubmitProfileForm(e) {
+        e.preventDefault()
+        onUpdateProfile({ name, email })
+        setIsMessage(true)
+        handleInputDisabled()
+    }
+
+    useEffect(() => {
+      const timer = setTimeout(() => setIsMessage(false), 3000)
+      return () => clearTimeout(timer)
+  })
+
+    useEffect(() => {
+        if (errorName || errorEmail) {
+            setIsFormValid(false)
+        } else {
+            setIsFormValid(true)
+        }
+    }, [errorEmail, errorName])
+
+    useEffect(() => {
+        if (name === currentUser.name && email === currentUser.email) {
+            setIsFormValid(false)
+        } else {
+            setIsFormValid(true)
+        }
+    }, [currentUser.email, currentUser.name, email, name])
+
     return (
         <section className="profile">
-            <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+            <h2 className="profile__title">{`Привет, ${currentUser.name}!`}</h2>
             <form className="profile__form" onSubmit={handleSubmitProfileForm}>
                 <label className="profile__input">
                     Имя
@@ -25,19 +89,14 @@ resetForm(currentUser, {}, false);
                         className="profile__input-item"
                         name="name"
                         type="text"
-                        // defaultValue="Екатерина"
                         placeholder="Имя"
-                        value={values.name || ""}
-                        onChange={handleChange}
-                        minLength={2}
-                        maxLength={30}
-
-                        required
+                        value={name || ''}
+                        onChange={handleChangeName}
+                        disabled={!isInputDisabled}
                     />
-                                <span
-                className='profile__error profile__error_active'
-
-            >{errors.name}</span>
+                    <span className="profile__error profile__error_active">
+                        {errorName}
+                    </span>
                 </label>
                 <label className="profile__input">
                     E-mail
@@ -45,20 +104,30 @@ resetForm(currentUser, {}, false);
                         className="profile__input-item"
                         name="email"
                         type="text"
-                        // defaultValue="mail@mail.ru"
                         placeholder="E-mail"
-                        pattern="[A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
-                        value={values.email || ""}
-                        onChange={handleChange}
-
-                        required
+                        value={email || ''}
+                        onChange={handleChangeEmail}
+                        disabled={!isInputDisabled}
                     />
-                                <span
-                className='input__error input__error_active'
-
-            >{errors.email}</span>
+                    <span className="input__error input__error_active">
+                        {errorEmail}
+                    </span>
                 </label>
-                <button type="submit" className="profile__submit" disabled={isDisabled}>
+                <span
+                    className={
+                        isMessage
+                            ? 'profile-form__error profile-form__error_active'
+                            : 'profile-form__error'
+                    }
+                >
+                    {message}
+                </span>
+                <button
+                    type="submit"
+                    className="profile__submit"
+                    disabled={!isFormValid || name < 2 || email < 2}
+                    onClick={handleInputDisabled}
+                >
                     Редактировать
                 </button>
             </form>
