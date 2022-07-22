@@ -11,6 +11,7 @@ import SavedMovies from '../SavedMovies/SavedMovies'
 import Profile from '../Profile/Profile'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import mainApi from '../../utils/mainApi'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
     useEffect(() => {
         handleTokenCheck()
         if (loggedIn) {
+            navigate('/movies')
             mainApi
                 .getProfile()
                 .then((profileData) => {
@@ -41,6 +43,7 @@ function App() {
                 })
                 .catch((err) => console.log(err))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn])
 
     // получение фильмов юзера
@@ -165,44 +168,52 @@ function App() {
                     ></Route>
 
                     <Route
-                        path="/profile"
                         element={
-                            <Profile
-                                onLogout={handleLogOut}
-                                onUpdateProfile={handleUpdateProfile}
-                            />
+                            <ProtectedRoute
+                                loggedIn={loggedIn}
+                            ></ProtectedRoute>
                         }
-                    ></Route>
+                    >
+                        <Route
+                            path="/profile"
+                            element={
+                                <Profile
+                                    onLogout={handleLogOut}
+                                    onUpdateProfile={handleUpdateProfile}
+                                />
+                            }
+                        ></Route>
+
+                        <Route
+                            path="/movies"
+                            element={[
+                                <Movies
+                                    key={'index0'}
+                                    onSave={handleSaveMovie}
+                                    onDelete={handleDeleteMovie}
+                                    moviesCardList={savedMovies}
+                                />,
+                                <Footer key={'index1'} />,
+                            ]}
+                        ></Route>
+
+                        <Route
+                            path="/saved-movies"
+                            element={[
+                                <SavedMovies
+                                    key={'index0'}
+                                    onDelete={handleDeleteMovie}
+                                    moviesCardList={savedMovies}
+                                />,
+                                <Footer key={'index1'} />,
+                            ]}
+                        ></Route>
+                    </Route>
 
                     <Route
                         path="/"
                         element={[
                             <Main key={'index0'} />,
-                            <Footer key={'index1'} />,
-                        ]}
-                    ></Route>
-
-                    <Route
-                        path="/movies"
-                        element={[
-                            <Movies
-                                key={'index0'}
-                                onSave={handleSaveMovie}
-                                onDelete={handleDeleteMovie}
-                                moviesCardList={savedMovies}
-                            />,
-                            <Footer key={'index1'} />,
-                        ]}
-                    ></Route>
-
-                    <Route
-                        path="/saved-movies"
-                        element={[
-                            <SavedMovies
-                                key={'index0'}
-                                onDelete={handleDeleteMovie}
-                                moviesCardList={savedMovies}
-                            />,
                             <Footer key={'index1'} />,
                         ]}
                     ></Route>

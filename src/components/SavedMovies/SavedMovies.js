@@ -41,6 +41,7 @@ function SavedMovies({ moviesCardList, onDelete }) {
             {isSearchComplited ? (
                 searchedMovies.length > 0 ? (
                     <MoviesCardList
+                    savedMoviesRoute={true}
                         movies={searchedMovies}
                         onDelete={onDelete}
                         isSaved={true}

@@ -12,7 +12,7 @@ function SearchForm({ onSearchMovies, savedMoviesRoute }) {
     useEffect(() => {
         if (!savedMoviesRoute) {
             const query = localStorage.getItem('keyWord')
-            console.log(query)
+
             if (query) {
                 setKeyWord(query)
             }
@@ -22,7 +22,7 @@ function SearchForm({ onSearchMovies, savedMoviesRoute }) {
     useEffect(() => {
         if (!savedMoviesRoute) {
             const status = localStorage.getItem('checkBoxStatus')
-            console.log(JSON.parse(status))
+
             if (JSON.parse(status) === true) {
                 setCheckBoxStatus(true)
             } else {

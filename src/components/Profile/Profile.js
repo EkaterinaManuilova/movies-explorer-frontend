@@ -16,7 +16,7 @@ resetForm(currentUser, {}, false);
     onUpdateProfile(values)
   }
     return (
-        <div className="profile">
+        <section className="profile">
             <h2 className="profile__title">Привет, {currentUser.name}!</h2>
             <form className="profile__form" onSubmit={handleSubmitProfileForm}>
                 <label className="profile__input">
@@ -65,7 +65,7 @@ resetForm(currentUser, {}, false);
             <Link className="profile__logout" to="/" onClick={onLogout}>
                 Выйти из аккаунта
             </Link>
-        </div>
+        </section>
     )
 }
 

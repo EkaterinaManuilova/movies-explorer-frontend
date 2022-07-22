@@ -74,7 +74,7 @@ function BurgerMenu({ isOpen, handleClick, onClose }) {
                         </NavLink>
                     </React.Fragment>
                 </nav>
-                <ProfileButton />
+                <ProfileButton onClose={onClose} />
             </div>
         </>
     )
