@@ -159,7 +159,7 @@ function Movies({
             {isLoading ?
                 <Preloader />
             : isSearchComplited ? 
-                toRenderMovies.length > 0 ? 
+                toRenderMovies ? 
                     <MoviesCardList
                         movies={toRenderMovies}
                         moviesCardList={moviesCardList}
