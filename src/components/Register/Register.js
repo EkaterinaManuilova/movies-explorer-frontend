@@ -4,17 +4,17 @@ import Input from '../Input/Input'
 import InfoTooltip from '../InfoTooltip/InfoTooltip'
 import useFormValidation from '../../utils/FormValidation'
 
-function Register({ onRegister, isRegSuccess, isInfoTooltipOpen }) {
-
-    const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
-    const isDisabled = !isValid;
+function Register({ onRegister, isSuccess, isInfoTooltipOpen, errorMessage }) {
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormValidation()
+    const isDisabled = !isValid
 
     function handleSubmitRegisterForm(event) {
-      event.preventDefault();
-      onRegister(values);
+        event.preventDefault()
+        onRegister(values)
     }
     useEffect(() => {
-      resetForm({}, {}, false);
+        resetForm({}, {}, false)
     }, [resetForm])
 
     return (
@@ -27,13 +27,12 @@ function Register({ onRegister, isRegSuccess, isInfoTooltipOpen }) {
                 linkText="Войти"
                 linkPath="/signin"
                 isDisabled={isDisabled}
-
             >
                 <Input
                     type="text"
                     name="name"
                     labelText="имя"
-                    value={values.name || ""}
+                    value={values.name || ''}
                     onChange={handleChange}
                     placeholder="Имя"
                     minLength={2}
@@ -46,7 +45,7 @@ function Register({ onRegister, isRegSuccess, isInfoTooltipOpen }) {
                     name="email"
                     labelText="E-mail"
                     pattern="[A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$"
-                    value={values.email || ""}
+                    value={values.email || ''}
                     onChange={handleChange}
                     placeholder="mail@mail.ru"
                     errorText={errors.email}
@@ -55,13 +54,17 @@ function Register({ onRegister, isRegSuccess, isInfoTooltipOpen }) {
                     type="password"
                     name="password"
                     labelText="password"
-                    value={values.password || ""}
+                    value={values.password || ''}
                     onChange={handleChange}
                     placeholder="********"
                     errorText={errors.password}
                 />
             </AuthForm>
-            <InfoTooltip isRegSuccess={isRegSuccess} isInfoTooltipOpen={isInfoTooltipOpen} />
+            <InfoTooltip
+                isSuccess={isSuccess}
+                isInfoTooltipOpen={isInfoTooltipOpen}
+                errorMessage={errorMessage}
+            />
         </>
     )
 }

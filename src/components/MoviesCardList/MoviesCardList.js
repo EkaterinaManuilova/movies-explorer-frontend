@@ -14,7 +14,7 @@ function MoviesCardList({
             <ul className="movies-card-list">
                 {movies.map((moviesCard) => (
                     <MoviesCard
-                        key={moviesCard.id}
+                        key={moviesCard.id || moviesCard.movieId}
                         moviesCard={moviesCard}
                         moviesCardList={moviesCardList}
                         onSave={onSave}

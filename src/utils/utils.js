@@ -5,12 +5,10 @@ export function findShortMovies(movies) {
 
 //филтрация фильмов по ключевому слову и длине
 export function searchAndFilterMovies(movies, keyWord, checkBoxStatus) {
-  console.log(movies)
 const queryMovies = Array.isArray(movies) ? movies.filter((item) => {
   return (item.nameRU).toLowerCase().indexOf(keyWord.toLowerCase()) > -1
   }
 ) : [];
-console.log(queryMovies)
 if (checkBoxStatus) {
   return findShortMovies(queryMovies);
 }

@@ -5,8 +5,12 @@ import { NavLink } from 'react-router-dom'
 
 function ProfileButton({ onClose }) {
     return (
-        <NavLink className="profile-button__link" to="/profile" onClick={onClose}>
-        Аккаунт
+        <NavLink
+            className="profile-button__link"
+            to="/profile"
+            onClick={onClose}
+        >
+            Аккаунт
         </NavLink>
     )
 }

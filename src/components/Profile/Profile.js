@@ -32,10 +32,9 @@ function Profile({ onUpdateProfile, onLogout, message }) {
     }
 
     const handleChangeEmail = (e) => {
-        const validEmail =
-            /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/i.test(
-                e.target.value
-            )
+        const validEmail = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/i.test(
+            e.target.value
+        )
 
         if (!e.target.value.length) {
             setErrorEmail('Электронная почта должна быть заполнена.')
@@ -59,9 +58,9 @@ function Profile({ onUpdateProfile, onLogout, message }) {
     }
 
     useEffect(() => {
-      const timer = setTimeout(() => setIsMessage(false), 3000)
-      return () => clearTimeout(timer)
-  })
+        const timer = setTimeout(() => setIsMessage(false), 3000)
+        return () => clearTimeout(timer)
+    })
 
     useEffect(() => {
         if (errorName || errorEmail) {
@@ -116,8 +115,8 @@ function Profile({ onUpdateProfile, onLogout, message }) {
                 <span
                     className={
                         isMessage
-                            ? 'profile-form__error profile-form__error_active'
-                            : 'profile-form__error'
+                            ? 'profile-form__message profile-form__message_active'
+                            : 'profile-form__message'
                     }
                 >
                     {message}

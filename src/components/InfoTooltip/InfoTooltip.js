@@ -1,19 +1,13 @@
 import './InfoTooltip.css'
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import Success from '../../images/success.svg'
 import Fail from '../../images/fail.svg'
 
-function InfoTooltip({ onClose, isRegSuccess }) {
-    const [isOpenInfoTooltip, setIsOPenInfoTooltip] = useState(false)
+function InfoTooltip({ onClose, isSuccess, errorMessage, isInfoTooltipOpen }) {
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsOPenInfoTooltip(false), 6000)
-        return () => clearTimeout(timer)
-    })
-
-    useEffect(() => {
-        if (!isOpenInfoTooltip) return
+        if (!isInfoTooltipOpen) return
         const closeByEscape = (event) => {
             if (event.key === 'Escape') {
                 onClose()
@@ -21,7 +15,7 @@ function InfoTooltip({ onClose, isRegSuccess }) {
         }
         document.addEventListener('keydown', closeByEscape)
         return () => document.removeEventListener('keydown', closeByEscape)
-    }, [isOpenInfoTooltip, onClose])
+    }, [isInfoTooltipOpen, onClose])
 
     const closeByOverlay = (event) => {
         if (event.target === event.currentTarget) {
@@ -31,7 +25,7 @@ function InfoTooltip({ onClose, isRegSuccess }) {
 
     return (
         <div
-            className={isOpenInfoTooltip ? 'popup popup_opened' : 'popup'}
+            className={isInfoTooltipOpen ? 'popup popup_opened' : 'popup'}
             onClick={closeByOverlay}
         >
             <div className="popup__container">
@@ -43,14 +37,16 @@ function InfoTooltip({ onClose, isRegSuccess }) {
                 <div className="popup__form-container">
                     <img
                         className="popup__image"
-                        src={isRegSuccess ? Success : Fail}
-                        alt={isRegSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
+                        src={isSuccess ? Success : Fail}
+                        alt={isSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
                     />
-                    <p className="popup__message">
-                        {isRegSuccess
-                            ? 'Успешно'
-                            : 'Что-то пошло не так! Попробуйте ещё раз.'}
-                    </p>
+                    {isSuccess ?
+                    <p className="popup__message">Успешно</p>
+                    : <p className="popup__message">{ errorMessage }</p>
+                  }
+                    {/* <p className="popup__message">
+                        {isSuccess ? 'Успешно' : { errorMessage }}
+                    </p> */}
                 </div>
             </div>
         </div>

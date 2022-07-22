@@ -20,14 +20,14 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
 
-    const [isRegSuccess, setIsRegSuccess] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false)
 
     const [savedMovies, setSavedMovies] = useState([])
 
     const [profileMessage, setProfileMessage] = useState('')
-
+    const [errorMessage, setErrorMessage] = useState('')
     //получение данных юзера
     useEffect(() => {
         handleTokenCheck()
@@ -68,17 +68,24 @@ function App() {
         mainApi
             .register(userData)
             .then(() => {
-                setIsRegSuccess(true)
-                setIsInfoTooltipOpen(true)
+                setIsSuccess(true)
                 handleAuthorize(userData)
             })
             .catch((err) => {
                 console.log(err)
-                setIsRegSuccess(false)
-                setIsInfoTooltipOpen(true)
+                setIsSuccess(false)
+                if (err.code === 409) {
+                    setErrorMessage(
+                        'Пользователь с таким email уже зарегистрирован.'
+                    )
+                } else {
+                    setErrorMessage(
+                        'При регистрации произошла ошибка. Попробуйте снова.'
+                    )
+                }
             })
             .finally(() => {
-                setIsInfoTooltipOpen(false)
+                setIsInfoTooltipOpen(true)
             })
     }
 
@@ -88,11 +95,27 @@ function App() {
             .then((data) => {
                 if (data.token) {
                     localStorage.setItem('jwt', data.token)
+                    setIsSuccess(true)
                     setLoggedIn(true)
                     navigate('/movies')
                 }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                console.log(err)
+                setIsSuccess(false)
+                if (err.code === 400) {
+                    setErrorMessage('Неверный email и/или пароль')
+                } else if (err.code === 401) {
+                    setErrorMessage('Пользователь с таким email не найден')
+                } else {
+                    setErrorMessage(
+                        'При авторизации произошла ошибка. Попробуйте снова.'
+                    )
+                }
+            })
+            .finally(() => {
+                setIsInfoTooltipOpen(true)
+            })
     }
 
     const handleTokenCheck = () => {
@@ -118,14 +141,12 @@ function App() {
             })
             .catch((err) => {
                 console.log(err)
-                if (err === 409) {
+                if (err.code === 409) {
                     setProfileMessage(
                         'Пользователь с данным email уже существует.'
                     )
                 } else {
-                    setProfileMessage(
-                        'При обновлении данных произошла ошибка.'
-                    )
+                    setProfileMessage('При обновлении данных произошла ошибка.')
                 }
             })
     }
@@ -143,9 +164,17 @@ function App() {
             .saveMovie(movie)
             .then((newMovie) => {
                 setSavedMovies([newMovie, ...savedMovies])
+                setIsSuccess(true)
             })
             .catch((err) => {
                 console.log(err)
+                setIsSuccess(false)
+                setErrorMessage(
+                    'При сохранени фильма произошла ошибка. Попробуйте снова.'
+                )
+            })
+            .finally(() => {
+              setIsInfoTooltipOpen(true)
             })
     }
 
@@ -157,11 +186,24 @@ function App() {
                 setSavedMovies((movies) =>
                     movies.filter((m) => m._id !== movie._id)
                 )
+                setIsSuccess(true)
             })
             .catch((err) => {
                 console.log(err)
+                setIsSuccess(false)
+                setErrorMessage(
+                    'При удалении фильма произошла ошибка. Попробуйте снова.'
+                )
+            })
+            .finally(() => {
+              setIsInfoTooltipOpen(true)
             })
     }
+
+    useEffect(() => {
+      const timer = setTimeout(() => setIsInfoTooltipOpen(false), 2000)
+      return () => clearTimeout(timer)
+  })
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -174,15 +216,23 @@ function App() {
                         element={
                             <Register
                                 onRegister={handleRegister}
-                                isRegSuccess={isRegSuccess}
+                                isSuccess={isSuccess}
                                 isInfoTooltipOpen={isInfoTooltipOpen}
+                                errorMessage={errorMessage}
                             />
                         }
                     ></Route>
 
                     <Route
                         path="/signin"
-                        element={<Login onLogin={handleAuthorize} />}
+                        element={
+                            <Login
+                                onLogin={handleAuthorize}
+                                isSuccess={isSuccess}
+                                isInfoTooltipOpen={isInfoTooltipOpen}
+                                errorMessage={errorMessage}
+                            />
+                        }
                     ></Route>
 
                     <Route
@@ -211,6 +261,9 @@ function App() {
                                     onSave={handleSaveMovie}
                                     onDelete={handleDeleteMovie}
                                     moviesCardList={savedMovies}
+                                    isSuccess={isSuccess}
+                                    isInfoTooltipOpen={isInfoTooltipOpen}
+                                    errorMessage={errorMessage}
                                 />,
                                 <Footer key={'index1'} />,
                             ]}
@@ -223,6 +276,9 @@ function App() {
                                     key={'index0'}
                                     onDelete={handleDeleteMovie}
                                     moviesCardList={savedMovies}
+                                    isSuccess={isSuccess}
+                                    isInfoTooltipOpen={isInfoTooltipOpen}
+                                    errorMessage={errorMessage}
                                 />,
                                 <Footer key={'index1'} />,
                             ]}

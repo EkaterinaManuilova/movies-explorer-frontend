@@ -3,9 +3,16 @@ import './SavedMovies.css'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Devider from '../Devider/Devider'
+import InfoTooltip from '../InfoTooltip/InfoTooltip'
 import { searchAndFilterMovies } from '../../utils/utils'
 
-function SavedMovies({ moviesCardList, onDelete }) {
+function SavedMovies({
+    moviesCardList,
+    onDelete,
+    isSuccess,
+    isInfoTooltipOpen,
+    errorMessage,
+}) {
     const [searchedMovies, setSearchedMovies] = useState([])
     const [isSearchComplited, setIsSearchComplited] = useState(false)
 
@@ -41,13 +48,13 @@ function SavedMovies({ moviesCardList, onDelete }) {
             {isSearchComplited ? (
                 searchedMovies.length > 0 ? (
                     <MoviesCardList
-                    savedMoviesRoute={true}
+                        savedMoviesRoute={true}
                         movies={searchedMovies}
                         onDelete={onDelete}
                         isSaved={true}
                     />
                 ) : (
-                    ''
+                    <span className="movies__message">Ничего не найдено.</span>
                 )
             ) : (
                 <MoviesCardList
@@ -58,6 +65,11 @@ function SavedMovies({ moviesCardList, onDelete }) {
             )}
 
             <Devider />
+            <InfoTooltip
+                isSuccess={isSuccess}
+                isInfoTooltipOpen={isInfoTooltipOpen}
+                errorMessage={errorMessage}
+            />
         </section>
     )
 }

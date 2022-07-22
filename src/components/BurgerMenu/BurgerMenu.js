@@ -25,7 +25,11 @@ function BurgerMenu({ isOpen, handleClick, onClose }) {
     return (
         <>
             <div
-                className={isOpen ? 'burger-menu__left' : 'burger-menu__left burger-menu__left_none'}
+                className={
+                    isOpen
+                        ? 'burger-menu__left'
+                        : 'burger-menu__left burger-menu__left_none'
+                }
                 onClick={closeByOverlay}
             ></div>
             <div
@@ -49,24 +53,36 @@ function BurgerMenu({ isOpen, handleClick, onClose }) {
                 <nav className="burger-menu-nav">
                     <React.Fragment>
                         <NavLink
-                        className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-                        exact="true"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? 'burger-menu-nav__link_active'
+                                    : 'burger-menu-nav__link'
+                            }
+                            exact="true"
                             to="/"
                             onClick={onClose}
                         >
                             Главная
                         </NavLink>
                         <NavLink
-                             className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-                             exact="true"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? 'burger-menu-nav__link_active'
+                                    : 'burger-menu-nav__link'
+                            }
+                            exact="true"
                             to="/movies"
                             onClick={onClose}
                         >
                             Фильмы
                         </NavLink>
                         <NavLink
-                             className={({isActive}) => isActive ? "burger-menu-nav__link_active" : "burger-menu-nav__link"}
-                             exact="true"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? 'burger-menu-nav__link_active'
+                                    : 'burger-menu-nav__link'
+                            }
+                            exact="true"
                             to="/saved-movies"
                             onClick={onClose}
                         >

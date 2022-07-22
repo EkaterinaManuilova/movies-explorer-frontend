@@ -4,6 +4,7 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreButton from '../MoreButton/MoreButton'
 import Preloader from '../Preloader/Preloader'
+import InfoTooltip from '../InfoTooltip/InfoTooltip'
 import moviesApi from '../../utils/moviesApi'
 import {
     searchAndFilterMovies,
@@ -11,9 +12,17 @@ import {
     changeMovies,
 } from '../../utils/utils'
 
-function Movies({ moviesCardList, onSave, onDelete }) {
+function Movies({
+    moviesCardList,
+    onSave,
+    onDelete,
+    isSuccess,
+    isInfoTooltipOpen,
+    errorMessage,
+}) {
     const [isLoading, setIsLoading] = useState(false)
     const [searchMessage, setSearchMessage] = useState('')
+    const [isError, setIsError] = useState(false)
     const [isSearchComplited, setIsSearchComplited] = useState(false)
 
     const [keyWord, setKeyWord] = useState('')
@@ -50,12 +59,6 @@ function Movies({ moviesCardList, onSave, onDelete }) {
     }
 
     useEffect(() => {
-        if (toRenderMovies.length === searchedMovies.length) {
-            setIsMore(false)
-        }
-    }, [searchedMovies.length, toRenderMovies])
-
-    useEffect(() => {
         setIsMore(false)
     }, [])
 
@@ -86,7 +89,7 @@ function Movies({ moviesCardList, onSave, onDelete }) {
     }
 
     const handleSearchMovies = (keyWord, checkBoxStatus) => {
-        setIsLoading(true)
+        
         setKeyWord(keyWord)
         setCheckBoxStatus(checkBoxStatus)
 
@@ -94,6 +97,7 @@ function Movies({ moviesCardList, onSave, onDelete }) {
         localStorage.setItem('checkBoxStatus', checkBoxStatus)
 
         if (!initialMovies.length) {
+          setIsLoading(true)
             moviesApi
                 .getInitialMovies()
                 .then((data) => {
@@ -102,6 +106,7 @@ function Movies({ moviesCardList, onSave, onDelete }) {
                     handleSearchAndFilterMovies(data, keyWord, checkBoxStatus)
                 })
                 .catch((err) => {
+                  setIsError(true)
                     setSearchMessage(
                         'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
                     )
@@ -113,8 +118,6 @@ function Movies({ moviesCardList, onSave, onDelete }) {
                 })
         } else {
             handleSearchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
-
-            setIsLoading(false)
         }
     }
 
@@ -142,28 +145,42 @@ function Movies({ moviesCardList, onSave, onDelete }) {
         }
     }, [keyWord, checkBoxStatus, initialMovies])
 
+    useEffect(() => {
+        if (toRenderMovies) {
+            if (toRenderMovies.length === searchedMovies.length) {
+                setIsMore(false)
+            }
+        }
+    }, [searchedMovies, toRenderMovies])
+
     return (
         <section className="movies">
             <SearchForm onSearchMovies={handleSearchMovies} />
-            {isLoading ? (
+            {isLoading ?
                 <Preloader />
-            ) : isSearchComplited ? (
-                toRenderMovies.length > 0 ? (
+            : isSearchComplited ? 
+                toRenderMovies.length > 0 ? 
                     <MoviesCardList
                         movies={toRenderMovies}
                         moviesCardList={moviesCardList}
                         onSave={onSave}
                         onDelete={onDelete}
                     />
-                ) : (
-                    <span className="movies__message">
-                        {!isLoading ? 'Ничего не найдено.' : { searchMessage }}
-                    </span>
+                :
+                (!isError ? 
+                    <span className="movies__message">Ничего не найдено.</span>
+                 : 
+                    <span className="movies__message">{searchMessage}</span>
                 )
-            ) : (
+             : (
                 ''
             )}
             {isMore && <MoreButton onClick={handleMoreMoviesLoad} />}
+            <InfoTooltip
+                isSuccess={isSuccess}
+                isInfoTooltipOpen={isInfoTooltipOpen}
+                errorMessage={errorMessage}
+            />
         </section>
     )
 }

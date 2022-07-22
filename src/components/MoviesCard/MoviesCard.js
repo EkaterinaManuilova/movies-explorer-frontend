@@ -27,7 +27,7 @@ function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
     }
 
     return (
-        <li className="movies-card" key={moviesCard.id}>
+        <li className="movies-card">
             <div className="movies-card__head">
                 <div className="movies-card__head-info">
                     <h2 className="movies-card__title">{moviesCard.nameRU}</h2>
