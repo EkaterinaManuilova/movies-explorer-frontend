@@ -58,19 +58,22 @@ function Movies({
         )
     }
 
-    useEffect(() => {
-        setIsMore(false)
-    }, [])
+    // useEffect(() => {
+    //     console.log(toRenderMovies)
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     useEffect(() => {
         if (searchedMovies.length > 0) {
             if (searchedMovies.length > count) {
                 setToRenderMovies(searchedMovies.slice(0, count))
-
                 setIsMore(true)
             } else {
                 setToRenderMovies(searchedMovies)
             }
+        } else if (searchedMovies.length === 0) {
+            setIsSearchComplited(true)
+            setToRenderMovies([])
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [count, searchedMovies])
@@ -89,7 +92,7 @@ function Movies({
     }
 
     const handleSearchMovies = (keyWord, checkBoxStatus) => {
-        
+        setToRenderMovies([])
         setKeyWord(keyWord)
         setCheckBoxStatus(checkBoxStatus)
 
@@ -97,7 +100,8 @@ function Movies({
         localStorage.setItem('checkBoxStatus', checkBoxStatus)
 
         if (!initialMovies.length) {
-          setIsLoading(true)
+          
+            setIsLoading(true)
             moviesApi
                 .getInitialMovies()
                 .then((data) => {
@@ -106,7 +110,7 @@ function Movies({
                     handleSearchAndFilterMovies(data, keyWord, checkBoxStatus)
                 })
                 .catch((err) => {
-                  setIsError(true)
+                    setIsError(true)
                     setSearchMessage(
                         'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
                     )
@@ -118,6 +122,8 @@ function Movies({
                 })
         } else {
             handleSearchAndFilterMovies(initialMovies, keyWord, checkBoxStatus)
+            setIsLoading(false)
+            setIsError(false)
         }
     }
 
@@ -130,8 +136,8 @@ function Movies({
             setSearchedMovies(
                 checkBoxStatus ? findShortMovies(arrMovies) : arrMovies
             )
-            setIsSearchComplited(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkBoxStatus, keyWord])
 
     useEffect(() => {
@@ -149,6 +155,8 @@ function Movies({
         if (toRenderMovies) {
             if (toRenderMovies.length === searchedMovies.length) {
                 setIsMore(false)
+            } else {
+              setIsMore(true)
             }
         }
     }, [searchedMovies, toRenderMovies])
@@ -156,24 +164,24 @@ function Movies({
     return (
         <section className="movies">
             <SearchForm onSearchMovies={handleSearchMovies} />
-            {isLoading ?
+            {isLoading ? (
                 <Preloader />
-            : isSearchComplited ? 
-                toRenderMovies ? 
+            ) : (isSearchComplited ? (
+                (toRenderMovies && searchedMovies.length > 0) ? (
                     <MoviesCardList
                         movies={toRenderMovies}
                         moviesCardList={moviesCardList}
                         onSave={onSave}
                         onDelete={onDelete}
                     />
-                :
-                (!isError ? 
+                ) : ((searchedMovies.length === 0 && initialMovies.length > 0) ? 
                     <span className="movies__message">Ничего не найдено.</span>
-                 : 
+                 : ('')
+                )
+            ) : (
+                isError && 
                     <span className="movies__message">{searchMessage}</span>
                 )
-             : (
-                ''
             )}
             {isMore && <MoreButton onClick={handleMoreMoviesLoad} />}
             <InfoTooltip
