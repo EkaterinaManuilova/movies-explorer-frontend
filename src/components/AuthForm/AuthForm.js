@@ -12,21 +12,13 @@ function AuthForm({
     linkPath,
     onSubmit,
     isDisabled,
-
 }) {
-    // function handleSubmitForm(e) {
-    //     e.preventDefault()
-    // }
-    // const isValid = true
-
     return (
         <div className="auth">
             <AuthFormHeader title={title} />
             <form className="auth-form" onSubmit={onSubmit} noValidate>
                 <div className="auth-form__inputs">{children}</div>
-                <button disabled={isDisabled}
-                    className="auth-form__button"
-                >
+                <button disabled={isDisabled} className="auth-form__button">
                     {buttonText}
                 </button>
                 <div className="auth-form__link-content">

@@ -174,7 +174,7 @@ function App() {
                 )
             })
             .finally(() => {
-              setIsInfoTooltipOpen(true)
+                setIsInfoTooltipOpen(true)
             })
     }
 
@@ -196,14 +196,14 @@ function App() {
                 )
             })
             .finally(() => {
-              setIsInfoTooltipOpen(true)
+                setIsInfoTooltipOpen(true)
             })
     }
 
     useEffect(() => {
-      const timer = setTimeout(() => setIsInfoTooltipOpen(false), 2000)
-      return () => clearTimeout(timer)
-  })
+        const timer = setTimeout(() => setIsInfoTooltipOpen(false), 2000)
+        return () => clearTimeout(timer)
+    })
 
     return (
         <CurrentUserContext.Provider value={currentUser}>

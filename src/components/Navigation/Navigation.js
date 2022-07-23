@@ -6,14 +6,20 @@ function Navigation() {
     return (
         <nav className="main-nav">
             <React.Fragment>
-                <NavLink to="/movies"
-                    className={({isActive}) => isActive ? "main-nav__link_active" : "main-nav__link"}
+                <NavLink
+                    to="/movies"
+                    className={({ isActive }) =>
+                        isActive ? 'main-nav__link_active' : 'main-nav__link'
+                    }
                 >
                     Фильмы
                 </NavLink>
                 <NavLink
-                className={({isActive}) => isActive ? "main-nav__link_active" : "main-nav__link"}
-                    to="/saved-movies">
+                    className={({ isActive }) =>
+                        isActive ? 'main-nav__link_active' : 'main-nav__link'
+                    }
+                    to="/saved-movies"
+                >
                     Сохраненные фильмы
                 </NavLink>
             </React.Fragment>

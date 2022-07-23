@@ -1,11 +1,10 @@
 import './InfoTooltip.css'
 import React from 'react'
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 import Success from '../../images/success.svg'
 import Fail from '../../images/fail.svg'
 
 function InfoTooltip({ onClose, isSuccess, errorMessage, isInfoTooltipOpen }) {
-
     useEffect(() => {
         if (!isInfoTooltipOpen) return
         const closeByEscape = (event) => {
@@ -40,10 +39,11 @@ function InfoTooltip({ onClose, isSuccess, errorMessage, isInfoTooltipOpen }) {
                         src={isSuccess ? Success : Fail}
                         alt={isSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
                     />
-                    {isSuccess ?
-                    <p className="popup__message">Успешно</p>
-                    : <p className="popup__message">{ errorMessage }</p>
-                  }
+                    {isSuccess ? (
+                        <p className="popup__message">Успешно</p>
+                    ) : (
+                        <p className="popup__message">{errorMessage}</p>
+                    )}
                     {/* <p className="popup__message">
                         {isSuccess ? 'Успешно' : { errorMessage }}
                     </p> */}

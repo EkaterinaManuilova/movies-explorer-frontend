@@ -58,11 +58,6 @@ function Movies({
         )
     }
 
-    // useEffect(() => {
-    //     console.log(toRenderMovies)
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
-
     useEffect(() => {
         if (searchedMovies.length > 0) {
             if (searchedMovies.length > count) {
@@ -75,7 +70,6 @@ function Movies({
             setIsSearchComplited(true)
             setToRenderMovies([])
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [count, searchedMovies])
 
     const handleSearchAndFilterMovies = (movies, kyeWord, checkBoxStatus) => {
@@ -100,7 +94,6 @@ function Movies({
         localStorage.setItem('checkBoxStatus', checkBoxStatus)
 
         if (!initialMovies.length) {
-          
             setIsLoading(true)
             moviesApi
                 .getInitialMovies()
@@ -137,7 +130,6 @@ function Movies({
                 checkBoxStatus ? findShortMovies(arrMovies) : arrMovies
             )
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkBoxStatus, keyWord])
 
     useEffect(() => {
@@ -156,7 +148,7 @@ function Movies({
             if (toRenderMovies.length === searchedMovies.length) {
                 setIsMore(false)
             } else {
-              setIsMore(true)
+                setIsMore(true)
             }
         }
     }, [searchedMovies, toRenderMovies])
@@ -166,20 +158,21 @@ function Movies({
             <SearchForm onSearchMovies={handleSearchMovies} />
             {isLoading ? (
                 <Preloader />
-            ) : (isSearchComplited ? (
-                (toRenderMovies && searchedMovies.length > 0) ? (
+            ) : isSearchComplited ? (
+                toRenderMovies && searchedMovies.length > 0 ? (
                     <MoviesCardList
                         movies={toRenderMovies}
                         moviesCardList={moviesCardList}
                         onSave={onSave}
                         onDelete={onDelete}
                     />
-                ) : ((searchedMovies.length === 0 && initialMovies.length > 0) ? 
+                ) : searchedMovies.length === 0 && initialMovies.length > 0 ? (
                     <span className="movies__message">Ничего не найдено.</span>
-                 : ('')
+                ) : (
+                    ''
                 )
             ) : (
-                isError && 
+                isError && (
                     <span className="movies__message">{searchMessage}</span>
                 )
             )}
