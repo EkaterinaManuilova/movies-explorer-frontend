@@ -9,7 +9,7 @@ function Register({ onRegister, isSuccess, isInfoTooltipOpen, errorMessage }) {
         useFormValidation()
     const isDisabled = !isValid
 
-    function handleSubmitRegisterForm(event) {
+    const handleSubmitRegisterForm = (event) => {
         event.preventDefault()
         onRegister(values)
     }

@@ -24,11 +24,11 @@ function Header() {
 
     const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false)
 
-    function handleClickBurgerMenu() {
+    const handleClickBurgerMenu = () => {
         setIsBurgerMenuOpen(!isBurgerMenuOpen)
     }
 
-    function handleCloseBurgerMenu() {
+    const handleCloseBurgerMenu = () => {
         setIsBurgerMenuOpen(false)
     }
 

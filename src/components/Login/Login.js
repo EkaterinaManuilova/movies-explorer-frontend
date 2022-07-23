@@ -8,7 +8,8 @@ function Login({ onLogin, isSuccess, isInfoTooltipOpen, errorMessage }) {
     const { values, handleChange, errors, isValid, resetForm } =
         useFormValidation()
     const isDisabled = !isValid
-    function handleSubmitLoginForm(event) {
+
+    const handleSubmitLoginForm= (event) => {
         event.preventDefault()
         onLogin(values)
     }

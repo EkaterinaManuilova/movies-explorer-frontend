@@ -10,7 +10,7 @@ function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
         moviesCard.id && moviesCardList.some((m) => m.movieId === moviesCard.id)
     const location = useLocation()
 
-    function handleClickMovie() {
+    const handleClickMovie = () => {
         if (isSaved) {
             onDelete(
                 moviesCardList.filter((m) => m.movieId === moviesCard.id)[0]
@@ -21,7 +21,7 @@ function MoviesCard({ moviesCard, moviesCardList, onSave, onDelete }) {
         }
     }
 
-    function handleDeleteClick() {
+    const handleDeleteClick = () => {
         console.log(moviesCard)
         onDelete(moviesCard)
     }

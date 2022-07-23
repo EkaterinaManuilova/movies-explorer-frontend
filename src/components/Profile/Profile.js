@@ -50,7 +50,7 @@ function Profile({ onUpdateProfile, onLogout, message }) {
         setIsInputDisabled(!isInputDisabled)
     }
 
-    function handleSubmitProfileForm(e) {
+    const handleSubmitProfileForm = (e) => {
         e.preventDefault()
         onUpdateProfile({ name, email })
         setIsMessage(true)
