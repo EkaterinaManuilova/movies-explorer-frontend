@@ -1,3 +1,5 @@
+import { MAIN_API } from '../utils/constants'
+
 class MainApi {
   constructor(options) {
       this._baseUrl = options.baseUrl
@@ -111,7 +113,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.movies-explorer-club.nomoredomains.xyz',
+  baseUrl: `${MAIN_API}`,
 })
 
 export default mainApi

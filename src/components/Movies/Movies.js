@@ -11,6 +11,15 @@ import {
     findShortMovies,
     changeMovies,
 } from '../../utils/utils'
+import {
+    MOBILE_WIDTH,
+    TABLET_WIDTH,
+    MOBILE_COUNT,
+    TABLET_COUNT,
+    DESKTOP_COUNT,
+    TABLET_MOBILE_ADDITIONAL,
+    DESKTOP_ADDITIONAL,
+} from '../../utils/constants'
 
 function Movies({
     moviesCardList,
@@ -40,15 +49,15 @@ function Movies({
     const windowSize = document.documentElement.clientWidth
 
     useEffect(() => {
-        if (windowSize > 768) {
-            setCount(12)
-            setAdditional(3)
-        } else if (windowSize <= 768 && windowSize >= 450) {
-            setCount(8)
-            setAdditional(2)
-        } else if (windowSize < 480) {
-            setCount(5)
-            setAdditional(2)
+        if (windowSize > TABLET_WIDTH) {
+            setCount(DESKTOP_COUNT)
+            setAdditional(DESKTOP_ADDITIONAL)
+        } else if (windowSize <= TABLET_WIDTH && windowSize >= MOBILE_WIDTH) {
+            setCount(TABLET_COUNT)
+            setAdditional(TABLET_MOBILE_ADDITIONAL)
+        } else if (windowSize < MOBILE_WIDTH) {
+            setCount(MOBILE_COUNT)
+            setAdditional(TABLET_MOBILE_ADDITIONAL)
         }
     }, [windowSize])
 

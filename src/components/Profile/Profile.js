@@ -32,8 +32,8 @@ function Profile({ onUpdateProfile, onLogout, message }) {
     }
 
     const handleChangeEmail = (e) => {
-        const validEmail = /^([\w.-]+)@([\w-]+)((\.(\w){2,3})+)$/i.test(
-            e.target.value
+      const validEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(
+        e.target.value
         )
 
         if (!e.target.value.length) {

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import {
+    Navigate,
+    Route,
+    Routes,
+    useNavigate,
+    useLocation,
+} from 'react-router-dom'
 import './App.css'
 import Header from '../Header/Header'
 import Login from '../Login/Login'
@@ -16,12 +22,13 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function App() {
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
 
     const [isSuccess, setIsSuccess] = useState(false)
-
+    const [isRequestSend, setIsRequestSend] = useState(false)
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false)
 
     const [savedMovies, setSavedMovies] = useState([])
@@ -30,9 +37,7 @@ function App() {
     const [errorMessage, setErrorMessage] = useState('')
     //получение данных юзера
     useEffect(() => {
-        handleTokenCheck()
         if (loggedIn) {
-            navigate('/movies')
             mainApi
                 .getProfile()
                 .then((profileData) => {
@@ -43,9 +48,10 @@ function App() {
                     }
                     setCurrentUser(data)
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.log(err)
+                })
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn])
 
     // получение фильмов юзера
@@ -56,15 +62,21 @@ function App() {
                 .getSavedMovies()
                 .then((data) => {
                     setSavedMovies(
-                        data.filter((item) => item.owned === currentUser._id)
+                        data.filter((item) => item.owner === currentUser._id)
                     )
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.log(err)
+                })
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser])
+
+    useEffect(() => {
+        setIsRequestSend(true)
     }, [])
 
     const handleRegister = (userData) => {
+        setIsRequestSend(false)
         mainApi
             .register(userData)
             .then(() => {
@@ -74,7 +86,7 @@ function App() {
             .catch((err) => {
                 console.log(err)
                 setIsSuccess(false)
-                if (err.code === 409) {
+                if (err.statusCode === 409) {
                     setErrorMessage(
                         'Пользователь с таким email уже зарегистрирован.'
                     )
@@ -86,10 +98,12 @@ function App() {
             })
             .finally(() => {
                 setIsInfoTooltipOpen(true)
+                setIsRequestSend(true)
             })
     }
 
     const handleAuthorize = (userData) => {
+        setIsRequestSend(false)
         mainApi
             .authorize(userData)
             .then((data) => {
@@ -103,10 +117,10 @@ function App() {
             .catch((err) => {
                 console.log(err)
                 setIsSuccess(false)
-                if (err.code === 400) {
-                    setErrorMessage('Неверный email и/или пароль')
-                } else if (err.code === 401) {
-                    setErrorMessage('Пользователь с таким email не найден')
+                if (err.statusCode === 400) {
+                    setErrorMessage('Ошибка')
+                } else if (err.statusCode === 401) {
+                    setErrorMessage('Не правильные почта и/или пароль')
                 } else {
                     setErrorMessage(
                         'При авторизации произошла ошибка. Попробуйте снова.'
@@ -115,10 +129,11 @@ function App() {
             })
             .finally(() => {
                 setIsInfoTooltipOpen(true)
+                setIsRequestSend(true)
             })
     }
 
-    const handleTokenCheck = () => {
+    useEffect(() => {
         const token = localStorage.getItem('jwt')
         if (token) {
             mainApi
@@ -126,11 +141,13 @@ function App() {
                 .then((res) => {
                     if (res) {
                         setLoggedIn(true)
+                        navigate(location)
                     }
                 })
                 .catch((err) => console.log(err))
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleUpdateProfile = (userData) => {
         mainApi
@@ -208,30 +225,40 @@ function App() {
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page-container">
-                <Header />
+                <Header loggedIn={loggedIn} />
 
                 <Routes>
                     <Route
                         path="/signup"
                         element={
-                            <Register
-                                onRegister={handleRegister}
-                                isSuccess={isSuccess}
-                                isInfoTooltipOpen={isInfoTooltipOpen}
-                                errorMessage={errorMessage}
-                            />
+                            loggedIn ? (
+                                <Navigate to="/movies" replace />
+                            ) : (
+                                <Register
+                                    onRegister={handleRegister}
+                                    isSuccess={isSuccess}
+                                    isRequestSend={isRequestSend}
+                                    isInfoTooltipOpen={isInfoTooltipOpen}
+                                    errorMessage={errorMessage}
+                                />
+                            )
                         }
                     ></Route>
 
                     <Route
                         path="/signin"
                         element={
-                            <Login
-                                onLogin={handleAuthorize}
-                                isSuccess={isSuccess}
-                                isInfoTooltipOpen={isInfoTooltipOpen}
-                                errorMessage={errorMessage}
-                            />
+                            loggedIn ? (
+                                <Navigate to="/movies" replace />
+                            ) : (
+                                <Login
+                                    onLogin={handleAuthorize}
+                                    isSuccess={isSuccess}
+                                    isRequestSend={isRequestSend}
+                                    isInfoTooltipOpen={isInfoTooltipOpen}
+                                    errorMessage={errorMessage}
+                                />
+                            )
                         }
                     ></Route>
 
@@ -293,7 +320,7 @@ function App() {
                         ]}
                     ></Route>
 
-                    <Route path="/*" element={<PageNotFound />}></Route>
+                    <Route path={'*'} element={<PageNotFound />}></Route>
                 </Routes>
             </div>
         </CurrentUserContext.Provider>

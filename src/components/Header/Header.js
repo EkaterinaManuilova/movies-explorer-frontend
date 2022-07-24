@@ -9,7 +9,7 @@ import RegButton from '../RegButton/RegButton'
 import BurgerMenuButton from '../BurgerMenuButton/BurgerMenuButton'
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 
-function Header() {
+function Header({ loggedIn }) {
     const [width, setWidth] = useState(window.innerWidth)
     const breakpoint = 768
 
@@ -49,10 +49,17 @@ function Header() {
                     <Routes>
                         <Route
                             path="/"
-                            element={[
-                                <RegButton key={'index0'} />,
-                                <LoginButton key={'index1'} />,
-                            ]}
+                            element={
+                                loggedIn
+                                    ? [
+                                          <Navigation key={'index0'} />,
+                                          <ProfileButton key={'index1'} />,
+                                      ]
+                                    : [
+                                          <RegButton key={'index0'} />,
+                                          <LoginButton key={'index1'} />,
+                                      ]
+                            }
                         ></Route>
                         <Route
                             path="/movies"
@@ -93,10 +100,26 @@ function Header() {
                 <Routes>
                     <Route
                         path="/"
-                        element={[
-                            <RegButton key={'index0'} />,
-                            <LoginButton key={'index1'} />,
-                        ]}
+                        element={
+                            loggedIn
+                                ? [
+                                      <BurgerMenuButton
+                                          isOpen={isBurgerMenuOpen}
+                                          handleClick={handleClickBurgerMenu}
+                                          key={'index0'}
+                                      />,
+                                      <BurgerMenu
+                                          isOpen={isBurgerMenuOpen}
+                                          handleClick={handleClickBurgerMenu}
+                                          onClose={handleCloseBurgerMenu}
+                                          key={'index1'}
+                                      />,
+                                  ]
+                                : [
+                                      <RegButton key={'index0'} />,
+                                      <LoginButton key={'index1'} />,
+                                  ]
+                        }
                     ></Route>
 
                     <Route

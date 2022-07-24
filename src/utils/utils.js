@@ -1,6 +1,8 @@
+import { SHORT_DURATION, CARDS_URL } from "./constants"
+
 //фильтрация фильмов по длине до 40минут
 export function findShortMovies(movies) {
-    return movies.filter((item) => item.duration < 40)
+    return movies.filter((item) => item.duration < SHORT_DURATION)
 }
 
 //филтрация фильмов по ключевому слову и длине
@@ -31,8 +33,8 @@ export function changeMovies(movies) {
             movie.image = 'https://g2.dcdn.lt/images/pix/kinas-76443525.jpg'
             movie.thumbnail = 'https://g2.dcdn.lt/images/pix/kinas-76443525.jpg'
         } else {
-            movie.thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`
-            movie.image = `https://api.nomoreparties.co${movie.image.url}`
+            movie.thumbnail = `${CARDS_URL}${movie.image.formats.thumbnail.url}`
+            movie.image = `${CARDS_URL}${movie.image.url}`
         }
     })
 }
