@@ -84,6 +84,78 @@ const moviesCarList = [
         duration: '1ч 47м',
         image: moviesCard12,
     },
+{
+  id: 1,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard1,
+},
+{
+  id: 2,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard2,
+},
+{
+  id: 3,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard3,
+},
+{
+  id: 4,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard4,
+},
+{
+  id: 5,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard5,
+},
+{
+  id: 6,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard6,
+},
+{
+  id: 7,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard7,
+},
+{
+  id: 8,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard8,
+},
+{
+  id: 9,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard9,
+},
+{
+  id: 10,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard10,
+},
+{
+  id: 11,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard11,
+},
+{
+  id: 12,
+  title: '33 слова о дизайне',
+  duration: '1ч 47м',
+  image: moviesCard12,
+},
 ]
 
 export default moviesCarList

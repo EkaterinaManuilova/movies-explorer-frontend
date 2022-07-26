@@ -1,27 +1,12 @@
 import './InfoTooltip.css'
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Success from '../../images/success.svg'
 import Fail from '../../images/fail.svg'
 
-function InfoTooltip({ onClose, isSuccess }) {
-    const [isOpenInfoTooltip, setIsOPenInfoTooltip] = useState(false)
-    // const [isSuccess, setIsSuccess] = useState(false);
-    //const isSuccess = true;//false покажет окно с ошибкой, сейчас пример: в Регистрации - ошибка, Авторизация - успешно
-    // const isOpenInfoTooltip=true;
-
+function InfoTooltip({ onClose, isSuccess, errorMessage, isInfoTooltipOpen }) {
     useEffect(() => {
-        const timer = setTimeout(() => setIsOPenInfoTooltip(true), 6000)
-        return () => clearTimeout(timer)
-    }, [])
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsOPenInfoTooltip(false), 3000)
-        return () => clearTimeout(timer)
-    })
-
-    useEffect(() => {
-        if (!isOpenInfoTooltip) return
+        if (!isInfoTooltipOpen) return
         const closeByEscape = (event) => {
             if (event.key === 'Escape') {
                 onClose()
@@ -29,7 +14,7 @@ function InfoTooltip({ onClose, isSuccess }) {
         }
         document.addEventListener('keydown', closeByEscape)
         return () => document.removeEventListener('keydown', closeByEscape)
-    }, [isOpenInfoTooltip, onClose])
+    }, [isInfoTooltipOpen, onClose])
 
     const closeByOverlay = (event) => {
         if (event.target === event.currentTarget) {
@@ -39,7 +24,7 @@ function InfoTooltip({ onClose, isSuccess }) {
 
     return (
         <div
-            className={isOpenInfoTooltip ? 'popup popup_opened' : 'popup'}
+            className={isInfoTooltipOpen ? 'popup popup_opened' : 'popup'}
             onClick={closeByOverlay}
         >
             <div className="popup__container">
@@ -54,11 +39,14 @@ function InfoTooltip({ onClose, isSuccess }) {
                         src={isSuccess ? Success : Fail}
                         alt={isSuccess ? 'Иконка Успешно' : 'Иконка Ошибка'}
                     />
-                    <p className="popup__message">
-                        {isSuccess
-                            ? 'Успешно'
-                            : 'Что-то пошло не так! Попробуйте ещё раз.'}
-                    </p>
+                    {isSuccess ? (
+                        <p className="popup__message">Успешно</p>
+                    ) : (
+                        <p className="popup__message">{errorMessage}</p>
+                    )}
+                    {/* <p className="popup__message">
+                        {isSuccess ? 'Успешно' : { errorMessage }}
+                    </p> */}
                 </div>
             </div>
         </div>

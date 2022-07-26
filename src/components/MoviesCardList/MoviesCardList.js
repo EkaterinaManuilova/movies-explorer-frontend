@@ -1,14 +1,24 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-function MoviesCardList({ moviesCardList, isMarked, isSaved }) {
+function MoviesCardList({
+    movies,
+    moviesCardList,
+    onSave,
+    onDelete,
+    isMarked,
+    isSaved,
+}) {
     return (
         <div className="movies-card-lis-container">
             <ul className="movies-card-list">
-                {moviesCardList.map((moviesCard) => (
+                {movies.map((moviesCard) => (
                     <MoviesCard
-                        key={moviesCard.id}
+                        key={moviesCard.id || moviesCard.movieId}
                         moviesCard={moviesCard}
+                        moviesCardList={moviesCardList}
+                        onSave={onSave}
+                        onDelete={onDelete}
                         isMarked={isMarked}
                         isSaved={isSaved}
                     />

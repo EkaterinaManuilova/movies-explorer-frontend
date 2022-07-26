@@ -9,6 +9,11 @@
     height: 32px;
     margin-top: 18px;
     transition: opacity linear 0.5s;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 110%;
 }
 
 .profile-button__link:hover {
